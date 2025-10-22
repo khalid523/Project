@@ -59,7 +59,7 @@ const projectsData = {
             'images/ayash/u/006.WebP', 'images/ayash/v/1.WebP', 'images/ayash/v/2.WebP',
             'images/ayash/v/03.WebP', 'images/ayash/y/01.WebP', 'images/ayash/y/02.WebP',
             'images/ayash/y/03.WebP', 'images/ayash/y/04.WebP', 'images/ayash/y/05.WebP',
-            'images/ayash/z/0055.WebP', 'images/ayash/z/0066.WebP'
+            'images/ayash/z/00550.WebP', 'images/ayash/z/0066.WebP'
         ]
     },
     project2: {
