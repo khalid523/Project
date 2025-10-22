@@ -5,7 +5,9 @@ const CONFIG = {
     defaultLang: 'ar',
     defaultTheme: 'light',
     animationDuration: 300,
-    imagePlaceholder: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="80"%3E%3Crect fill="%236366f1" width="100" height="80"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage%3C/text%3E%3C/svg%3E'
+    imagePlaceholder: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="80"%3E%3Crect fill="%236366f1" width="100" height="80"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage%3C/text%3E%3C/svg%3E',
+    lazyLoadThreshold: 100,
+    batchSize: 8
 };
 
 const projectsData = {
@@ -136,6 +138,7 @@ const AppState = {
     currentTheme: localStorage.getItem('royaTheme') || CONFIG.defaultTheme,
     currentProject: null,
     currentImageIndex: 0,
+    loadedImages: new Set(),
     
     setLanguage(lang) {
         this.currentLang = lang;
@@ -145,6 +148,14 @@ const AppState = {
     setTheme(theme) {
         this.currentTheme = theme;
         localStorage.setItem('royaTheme', theme);
+    },
+    
+    markImageAsLoaded(src) {
+        this.loadedImages.add(src);
+    },
+    
+    isImageLoaded(src) {
+        return this.loadedImages.has(src);
     }
 };
 
@@ -203,11 +214,22 @@ const Utils = {
             }
         });
         return element;
+    },
+
+    // Check if element is in viewport
+    isInViewport(element) {
+        const rect = element.getBoundingClientRect();
+        return (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+        );
     }
 };
 
 // ============================================
-// IMAGE OPTIMIZATION MODULE
+// ADVANCED IMAGE OPTIMIZATION MODULE
 // ============================================
 const ImageOptimizer = {
     // تحميل أولي للصور الأولى فقط
@@ -216,42 +238,102 @@ const ImageOptimizer = {
             // تحميل أول 3 صور فقط لكل مشروع
             const firstImages = project.images.slice(0, 3);
             firstImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
+                if (!AppState.isImageLoaded(src)) {
+                    const img = new Image();
+                    img.onload = () => AppState.markImageAsLoaded(src);
+                    img.src = src;
+                }
             });
         });
     },
 
     // تحميل متقدم للصور مع الأولوية
-    loadImageWithPriority(src, callback) {
+    loadImageWithPriority(src, callback, isThumbnail = false) {
+        // إذا كانت الصورة محملة مسبقاً
+        if (AppState.isImageLoaded(src)) {
+            callback(src);
+            return;
+        }
+
         const img = new Image();
-        img.onload = () => callback(src);
-        img.onerror = () => callback(CONFIG.imagePlaceholder);
+        
+        // تحسينات للأداء
+        if (isThumbnail) {
+            // للثمبنيلز، يمكن استخدام جودة أقل
+            img.fetchPriority = 'low';
+        } else {
+            img.fetchPriority = 'high';
+        }
+        
+        img.onload = () => {
+            AppState.markImageAsLoaded(src);
+            callback(src);
+        };
+        
+        img.onerror = () => {
+            console.warn(`Failed to load image: ${src}`);
+            callback(CONFIG.imagePlaceholder);
+        };
+        
         img.src = src;
     },
 
     // تحميل مجموعة من الصور
-    loadImagesBatch(imageUrls, batchSize = 5) {
+    loadImagesBatch(imageUrls, batchSize = CONFIG.batchSize) {
         const batches = [];
         for (let i = 0; i < imageUrls.length; i += batchSize) {
             batches.push(imageUrls.slice(i, i + batchSize));
         }
         return batches;
+    },
+
+    // تحميل الصور عند الحاجة فقط (Lazy Loading)
+    lazyLoadImages() {
+        const images = document.querySelectorAll('img[data-src]');
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const src = img.getAttribute('data-src');
+                    
+                    this.loadImageWithPriority(src, (loadedSrc) => {
+                        img.src = loadedSrc;
+                        img.classList.add('loaded');
+                        img.removeAttribute('data-src');
+                    }, img.classList.contains('thumbnail-img'));
+                    
+                    observer.unobserve(img);
+                }
+            });
+        }, { 
+            rootMargin: `${CONFIG.lazyLoadThreshold}px` 
+        });
+
+        images.forEach(img => imageObserver.observe(img));
     }
 };
 
 // ============================================
-// PROJECTS GALLERY MODULE
+// PROJECTS GALLERY MODULE - OPTIMIZED
 // ============================================
 const ProjectsGallery = {
     init() {
         this.renderProjects();
         this.initializeModal();
         this.preloadFirstImages();
+        this.setupLazyLoading();
     },
 
     preloadFirstImages() {
         ImageOptimizer.preloadFirstImages();
+    },
+
+    setupLazyLoading() {
+        // إعداد Lazy Loading للصور
+        setTimeout(() => {
+            ImageOptimizer.lazyLoadImages();
+        }, 1000);
     },
 
     renderProjects() {
@@ -271,14 +353,31 @@ const ProjectsGallery = {
         const imageContainer = Utils.createElement('div', { className: 'project-image-container' });
         
         if (hasValidImage) {
+            // استخدام Lazy Loading
             const img = Utils.createElement('img', {
                 className: 'project-image',
-                src: firstImage,
+                'data-src': firstImage,
                 alt: project.title[AppState.currentLang],
-                loading: 'lazy',
-                onerror: () => this.showImagePlaceholder(imageContainer)
+                loading: 'lazy'
             });
+            
+            // إضافة مؤشر تحميل
+            const placeholder = Utils.createElement('div', {
+                className: 'image-placeholder'
+            });
+            imageContainer.appendChild(placeholder);
             imageContainer.appendChild(img);
+            
+            // تحميل الصورة فوراً إذا كانت في النطاق المرئي
+            setTimeout(() => {
+                if (Utils.isInViewport(imageContainer)) {
+                    ImageOptimizer.loadImageWithPriority(firstImage, (src) => {
+                        img.src = src;
+                        img.classList.add('loaded');
+                        placeholder.remove();
+                    });
+                }
+            }, 100);
         } else {
             this.showImagePlaceholder(imageContainer);
         }
@@ -351,6 +450,15 @@ const ProjectsGallery = {
         
         this.renderGallery();
         this.updateGalleryIcons();
+        
+        // إضافة class لمنع التمرير في الخلفية
+        document.body.style.overflow = 'hidden';
+    },
+
+    closeGallery() {
+        const { galleryModal } = DOM.elements;
+        galleryModal.classList.remove('active');
+        document.body.style.overflow = '';
     },
 
     async renderGallery() {
@@ -359,12 +467,12 @@ const ProjectsGallery = {
 
         // إظهار صورة مؤقتة أثناء التحميل
         mainImage.src = CONFIG.imagePlaceholder;
-        mainImage.classList.add('loading');
+        mainImage.classList.remove('loaded');
 
         // تحميل الصورة الرئيسية أولاً
         ImageOptimizer.loadImageWithPriority(project.images[AppState.currentImageIndex], (src) => {
             mainImage.src = src;
-            mainImage.classList.remove('loading');
+            mainImage.classList.add('loaded');
         });
 
         imageCounter.textContent = `${AppState.currentImageIndex + 1} / ${project.images.length}`;
@@ -376,22 +484,26 @@ const ProjectsGallery = {
     },
 
     loadThumbnailsInBatches(images, container, project) {
-        const batchSize = 10; // 10 صور في كل مرة
+        const batchSize = 15; // زيادة حجم الدفعة للأداء
         const batches = ImageOptimizer.loadImagesBatch(images, batchSize);
         
         batches.forEach((batch, batchIndex) => {
             setTimeout(() => {
                 this.renderThumbnailBatch(batch, batchIndex * batchSize, container, project);
-            }, batchIndex * 100); // تأخير 100ms بين كل مجموعة
+            }, batchIndex * 50); // تقليل التأخير بين المجموعات
         });
     },
 
     renderThumbnailBatch(batch, startIndex, container, project) {
+        const fragment = document.createDocumentFragment();
+        
         batch.forEach((imageSrc, batchIndex) => {
             const index = startIndex + batchIndex;
             const thumbnail = this.createThumbnail(imageSrc, index, project);
-            container.appendChild(thumbnail);
+            fragment.appendChild(thumbnail);
         });
+        
+        container.appendChild(fragment);
 
         // تحديث التمرير بعد إضافة الدفعة
         this.scrollThumbnailIntoView(AppState.currentImageIndex);
@@ -404,21 +516,25 @@ const ProjectsGallery = {
 
         // صورة مؤقتة أولاً
         const placeholder = Utils.createElement('div', {
-            className: 'thumbnail-placeholder',
-            innerHTML: '<i class="bx bx-loader-alt bx-spin"></i>'
+            className: 'thumbnail-placeholder'
         });
         thumbnail.appendChild(placeholder);
 
-        // تحميل الصورة الحقيقية
-        ImageOptimizer.loadImageWithPriority(imageSrc, (src) => {
-            placeholder.remove();
-            const img = Utils.createElement('img', {
-                src: src,
-                alt: `${project.title[AppState.currentLang]} ${index + 1}`,
-                loading: 'lazy'
-            });
-            thumbnail.appendChild(img);
+        // تحميل الصورة الحقيقية مع Lazy Loading
+        const img = Utils.createElement('img', {
+            'data-src': imageSrc,
+            alt: `${project.title[AppState.currentLang]} ${index + 1}`,
+            loading: 'lazy',
+            className: 'thumbnail-img'
         });
+        thumbnail.appendChild(img);
+
+        // تحميل الصورة فوراً
+        ImageOptimizer.loadImageWithPriority(imageSrc, (src) => {
+            img.src = src;
+            img.classList.add('loaded');
+            placeholder.remove();
+        }, true);
 
         thumbnail.addEventListener('click', () => {
             AppState.currentImageIndex = index;
@@ -434,9 +550,9 @@ const ProjectsGallery = {
         if (!galleryModal) return;
 
         // Close modal
-        modalClose?.addEventListener('click', () => galleryModal.classList.remove('active'));
+        modalClose?.addEventListener('click', () => this.closeGallery());
         galleryModal.addEventListener('click', (e) => {
-            if (e.target === galleryModal) galleryModal.classList.remove('active');
+            if (e.target === galleryModal) this.closeGallery();
         });
 
         // Navigation
@@ -461,7 +577,7 @@ const ProjectsGallery = {
                     this.navigate(isEnglish ? 1 : -1); 
                     break;
                 case 'Escape': 
-                    galleryModal.classList.remove('active'); 
+                    this.closeGallery(); 
                     break;
             }
         });
@@ -490,20 +606,11 @@ const ProjectsGallery = {
         const currentThumbnail = thumbnails[index];
         
         if (currentThumbnail) {
-            const container = thumbnailsContainer;
-            const thumbnail = currentThumbnail;
-            
-            const containerRect = container.getBoundingClientRect();
-            const thumbnailRect = thumbnail.getBoundingClientRect();
-            
-            // Check if thumbnail is not fully visible
-            if (thumbnailRect.left < containerRect.left || thumbnailRect.right > containerRect.right) {
-                thumbnail.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest',
-                    inline: 'center'
-                });
-            }
+            currentThumbnail.scrollIntoView({
+                behavior: 'smooth',
+                block: 'nearest',
+                inline: 'center'
+            });
         }
     },
 
@@ -1065,6 +1172,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 10% { opacity: 1; }
                 90% { opacity: 1; }
                 100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0; }
+            }
+            
+            @keyframes loading {
+                0% { background-position: 200% 0; }
+                100% { background-position: -200% 0; }
             }
         `;
         document.head.appendChild(style);
