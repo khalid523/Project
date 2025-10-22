@@ -101,14 +101,14 @@ body.english {
 /* Language Toggle */
 .lang-toggle {
     position: fixed;
-    left: 29px;
+    left: 40px;
     z-index: 1001;
     top: 21px;
 }
 
 body.english .lang-toggle {
     left: auto;
-    right: 29px;
+    right: 40px;
 }
 
 .footer-social {
