@@ -191,20 +191,52 @@ const Utils = {
         };
     },
 
-    // Preload images
-    preloadImages(imageUrls) {
-        imageUrls.forEach(url => {
-            const img = new Image();
-            img.src = url;
-        });
-    },
-
     // Create element with attributes
     createElement(tag, attributes = {}, children = []) {
         const element = document.createElement(tag);
         Object.assign(element, attributes);
-        children.forEach(child => element.appendChild(child));
+        children.forEach(child => {
+            if (typeof child === 'string') {
+                element.appendChild(document.createTextNode(child));
+            } else {
+                element.appendChild(child);
+            }
+        });
         return element;
+    }
+};
+
+// ============================================
+// IMAGE OPTIMIZATION MODULE
+// ============================================
+const ImageOptimizer = {
+    // تحميل أولي للصور الأولى فقط
+    preloadFirstImages() {
+        Object.values(projectsData).forEach(project => {
+            // تحميل أول 3 صور فقط لكل مشروع
+            const firstImages = project.images.slice(0, 3);
+            firstImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
+    },
+
+    // تحميل متقدم للصور مع الأولوية
+    loadImageWithPriority(src, callback) {
+        const img = new Image();
+        img.onload = () => callback(src);
+        img.onerror = () => callback(CONFIG.imagePlaceholder);
+        img.src = src;
+    },
+
+    // تحميل مجموعة من الصور
+    loadImagesBatch(imageUrls, batchSize = 5) {
+        const batches = [];
+        for (let i = 0; i < imageUrls.length; i += batchSize) {
+            batches.push(imageUrls.slice(i, i + batchSize));
+        }
+        return batches;
     }
 };
 
@@ -215,13 +247,11 @@ const ProjectsGallery = {
     init() {
         this.renderProjects();
         this.initializeModal();
-        this.preloadAllImages();
+        this.preloadFirstImages();
     },
 
-    preloadAllImages() {
-        Object.values(projectsData).forEach(project => {
-            Utils.preloadImages(project.images.slice(0, 3)); // Preload first 3 images
-        });
+    preloadFirstImages() {
+        ImageOptimizer.preloadFirstImages();
     },
 
     renderProjects() {
@@ -234,76 +264,77 @@ const ProjectsGallery = {
         });
     },
 
- createProjectCard(projectKey, project) {
-    const firstImage = project.images[0];
-    const hasValidImage = firstImage && !firstImage.includes('image1.jpg');
+    createProjectCard(projectKey, project) {
+        const firstImage = project.images[0];
+        const hasValidImage = firstImage && !firstImage.includes('image1.jpg');
 
-    const imageContainer = Utils.createElement('div', { className: 'project-image-container' });
-    
-    if (hasValidImage) {
-        const img = Utils.createElement('img', {
-            className: 'project-image',
-            src: firstImage,
-            alt: project.title[AppState.currentLang],
-            onerror: () => this.showImagePlaceholder(imageContainer)
-        });
-        imageContainer.appendChild(img);
-    } else {
-        this.showImagePlaceholder(imageContainer);
-    }
+        const imageContainer = Utils.createElement('div', { className: 'project-image-container' });
+        
+        if (hasValidImage) {
+            const img = Utils.createElement('img', {
+                className: 'project-image',
+                src: firstImage,
+                alt: project.title[AppState.currentLang],
+                loading: 'lazy',
+                onerror: () => this.showImagePlaceholder(imageContainer)
+            });
+            imageContainer.appendChild(img);
+        } else {
+            this.showImagePlaceholder(imageContainer);
+        }
 
-    const overlay = Utils.createElement('div', { className: 'project-overlay' }, [
-        Utils.createElement('span', { 
-            className: 'project-category',
-            textContent: project.category[AppState.currentLang]
-        }),
-        Utils.createElement('div', { className: 'images-count' }, [
-            Utils.createElement('i', { className: 'bx bx-images' }),
-            Utils.createElement('span', { textContent: `${project.images.length} ${AppState.currentLang === 'ar' ? 'صور' : 'images'}` })
-        ])
-    ]);
-
-    imageContainer.appendChild(overlay);
-
-    const content = Utils.createElement('div', { className: 'project-content' }, [
-        Utils.createElement('h3', { 
-            className: 'project-title',
-            textContent: project.title[AppState.currentLang]
-        }),
-        Utils.createElement('p', { 
-            className: 'project-description',
-            textContent: project.description[AppState.currentLang]
-        }),
-        Utils.createElement('div', { 
-            className: 'project-details'
-        }, [
-            Utils.createElement('div', { className: 'project-style' }, [
-                Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'النمط: ' : 'Style: ' }),
-                Utils.createElement('span', { textContent: project.style[AppState.currentLang] })
-            ]),
-            Utils.createElement('div', { className: 'project-location' }, [
-                Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'الموقع: ' : 'Location: ' }),
-                Utils.createElement('span', { textContent: project.location[AppState.currentLang] })
-            ])
-        ]),
-        Utils.createElement('div', { 
-            className: 'project-tech'
-        }, project.tech.map(techItem => 
+        const overlay = Utils.createElement('div', { className: 'project-overlay' }, [
             Utils.createElement('span', { 
-                className: 'tech-tag',
-                textContent: techItem[AppState.currentLang] || techItem.ar
-            })
-        ))
-    ]);
+                className: 'project-category',
+                textContent: project.category[AppState.currentLang]
+            }),
+            Utils.createElement('div', { className: 'images-count' }, [
+                Utils.createElement('i', { className: 'bx bx-images' }),
+                Utils.createElement('span', { textContent: `${project.images.length} ${AppState.currentLang === 'ar' ? 'صور' : 'images'}` })
+            ])
+        ]);
 
-    const card = Utils.createElement('div', { 
-        className: 'project-card',
-        'data-project': projectKey
-    }, [imageContainer, content]);
+        imageContainer.appendChild(overlay);
 
-    card.addEventListener('click', () => this.openGallery(projectKey));
-    return card;
-   },
+        const content = Utils.createElement('div', { className: 'project-content' }, [
+            Utils.createElement('h3', { 
+                className: 'project-title',
+                textContent: project.title[AppState.currentLang]
+            }),
+            Utils.createElement('p', { 
+                className: 'project-description',
+                textContent: project.description[AppState.currentLang]
+            }),
+            Utils.createElement('div', { 
+                className: 'project-details'
+            }, [
+                Utils.createElement('div', { className: 'project-style' }, [
+                    Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'النمط: ' : 'Style: ' }),
+                    Utils.createElement('span', { textContent: project.style[AppState.currentLang] })
+                ]),
+                Utils.createElement('div', { className: 'project-location' }, [
+                    Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'الموقع: ' : 'Location: ' }),
+                    Utils.createElement('span', { textContent: project.location[AppState.currentLang] })
+                ])
+            ]),
+            Utils.createElement('div', { 
+                className: 'project-tech'
+            }, project.tech.map(techItem => 
+                Utils.createElement('span', { 
+                    className: 'tech-tag',
+                    textContent: techItem[AppState.currentLang] || techItem.ar
+                })
+            ))
+        ]);
+
+        const card = Utils.createElement('div', { 
+            className: 'project-card',
+            'data-project': projectKey
+        }, [imageContainer, content]);
+
+        card.addEventListener('click', () => this.openGallery(projectKey));
+        return card;
+    },
 
     showImagePlaceholder(container) {
         container.innerHTML = '<div class="image-placeholder"><i class="bx bx-image-alt"></i></div>';
@@ -322,46 +353,81 @@ const ProjectsGallery = {
         this.updateGalleryIcons();
     },
 
-   renderGallery() {
-    const project = projectsData[AppState.currentProject];
-    const { mainImage, thumbnailsContainer, imageCounter } = DOM.elements;
+    async renderGallery() {
+        const project = projectsData[AppState.currentProject];
+        const { mainImage, thumbnailsContainer, imageCounter } = DOM.elements;
 
-    mainImage.src = project.images[AppState.currentImageIndex];
-    imageCounter.textContent = `${AppState.currentImageIndex + 1} / ${project.images.length}`;
+        // إظهار صورة مؤقتة أثناء التحميل
+        mainImage.src = CONFIG.imagePlaceholder;
+        mainImage.classList.add('loading');
 
-    thumbnailsContainer.innerHTML = '';
-    project.images.forEach((imageSrc, index) => {
+        // تحميل الصورة الرئيسية أولاً
+        ImageOptimizer.loadImageWithPriority(project.images[AppState.currentImageIndex], (src) => {
+            mainImage.src = src;
+            mainImage.classList.remove('loading');
+        });
+
+        imageCounter.textContent = `${AppState.currentImageIndex + 1} / ${project.images.length}`;
+
+        thumbnailsContainer.innerHTML = '';
+
+        // تحميل الثمبنيلز على مراحل
+        this.loadThumbnailsInBatches(project.images, thumbnailsContainer, project);
+    },
+
+    loadThumbnailsInBatches(images, container, project) {
+        const batchSize = 10; // 10 صور في كل مرة
+        const batches = ImageOptimizer.loadImagesBatch(images, batchSize);
+        
+        batches.forEach((batch, batchIndex) => {
+            setTimeout(() => {
+                this.renderThumbnailBatch(batch, batchIndex * batchSize, container, project);
+            }, batchIndex * 100); // تأخير 100ms بين كل مجموعة
+        });
+    },
+
+    renderThumbnailBatch(batch, startIndex, container, project) {
+        batch.forEach((imageSrc, batchIndex) => {
+            const index = startIndex + batchIndex;
+            const thumbnail = this.createThumbnail(imageSrc, index, project);
+            container.appendChild(thumbnail);
+        });
+
+        // تحديث التمرير بعد إضافة الدفعة
+        this.scrollThumbnailIntoView(AppState.currentImageIndex);
+    },
+
+    createThumbnail(imageSrc, index, project) {
         const thumbnail = Utils.createElement('div', {
             className: `thumbnail ${index === AppState.currentImageIndex ? 'active' : ''}`
-        }, [
-            Utils.createElement('img', {
-                src: imageSrc,
+        });
+
+        // صورة مؤقتة أولاً
+        const placeholder = Utils.createElement('div', {
+            className: 'thumbnail-placeholder',
+            innerHTML: '<i class="bx bx-loader-alt bx-spin"></i>'
+        });
+        thumbnail.appendChild(placeholder);
+
+        // تحميل الصورة الحقيقية
+        ImageOptimizer.loadImageWithPriority(imageSrc, (src) => {
+            placeholder.remove();
+            const img = Utils.createElement('img', {
+                src: src,
                 alt: `${project.title[AppState.currentLang]} ${index + 1}`,
-                onerror: (e) => e.target.src = CONFIG.imagePlaceholder
-            })
-        ]);
+                loading: 'lazy'
+            });
+            thumbnail.appendChild(img);
+        });
 
         thumbnail.addEventListener('click', () => {
             AppState.currentImageIndex = index;
             this.renderGallery();
+            this.scrollThumbnailIntoView(index);
         });
 
-        thumbnailsContainer.appendChild(thumbnail);
-    });
-
-    // Update tech tags if they exist
-    const techContainer = document.querySelector('.gallery-tech');
-    if (techContainer) {
-        techContainer.innerHTML = '';
-        project.tech.forEach(techItem => {
-            const techTag = Utils.createElement('span', {
-                className: 'tech-tag',
-                textContent: techItem[AppState.currentLang] || techItem.ar
-            });
-            techContainer.appendChild(techTag);
-        });
-    }
-},
+        return thumbnail;
+    },
 
     initializeModal() {
         const { galleryModal, modalClose, prevBtn, nextBtn } = DOM.elements;
@@ -411,6 +477,34 @@ const ProjectsGallery = {
         
         AppState.currentImageIndex = (AppState.currentImageIndex + adjustedDirection + project.images.length) % project.images.length;
         this.renderGallery();
+        
+        // Scroll thumbnail into view when navigating
+        this.scrollThumbnailIntoView(AppState.currentImageIndex);
+    },
+
+    scrollThumbnailIntoView(index) {
+        const { thumbnailsContainer } = DOM.elements;
+        if (!thumbnailsContainer) return;
+
+        const thumbnails = thumbnailsContainer.querySelectorAll('.thumbnail');
+        const currentThumbnail = thumbnails[index];
+        
+        if (currentThumbnail) {
+            const container = thumbnailsContainer;
+            const thumbnail = currentThumbnail;
+            
+            const containerRect = container.getBoundingClientRect();
+            const thumbnailRect = thumbnail.getBoundingClientRect();
+            
+            // Check if thumbnail is not fully visible
+            if (thumbnailRect.left < containerRect.left || thumbnailRect.right > containerRect.right) {
+                thumbnail.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest',
+                    inline: 'center'
+                });
+            }
+        }
     },
 
     updateGalleryIcons() {
@@ -637,10 +731,15 @@ const UIComponents = {
         const loadingScreen = document.querySelector('.loading-screen');
         if (!loadingScreen) return;
 
+        // تحميل أسرع للشاشة
         setTimeout(() => {
             loadingScreen.classList.add('loaded');
-            setTimeout(() => loadingScreen.remove(), 500);
-        }, 1500);
+            setTimeout(() => {
+                if (loadingScreen.parentNode) {
+                    loadingScreen.remove();
+                }
+            }, 500);
+        }, 1000);
     },
 
     initNavigation() {
@@ -801,13 +900,14 @@ const UIComponents = {
                 z-index: 10000; display: flex; align-items: center; gap: 10px; transform: translateX(150%);
                 transition: transform 0.3s ease; max-width: 400px;
             `
-        }, [
-            Utils.createElement('span', { textContent: message }),
-            Utils.createElement('button', { 
-                className: 'notification-close',
-                innerHTML: '<i class="bx bx-x"></i>'
-            })
-        ]);
+        });
+
+        notification.innerHTML = `
+            <span>${message}</span>
+            <button class="notification-close" style="background: none; border: none; color: white; cursor: pointer;">
+                <i class="bx bx-x"></i>
+            </button>
+        `;
 
         document.body.appendChild(notification);
 
@@ -823,42 +923,30 @@ const UIComponents = {
 
     removeNotification(notification) {
         notification.style.transform = 'translateX(150%)';
-        setTimeout(() => notification.remove(), 300);
+        setTimeout(() => {
+            if (notification.parentNode) {
+                notification.remove();
+            }
+        }, 300);
     },
 
     initParticles() {
         const { heroParticles } = DOM.elements;
         if (!heroParticles) return;
 
-        const particleCount = 30;
+        const particleCount = 20; // تقليل العدد للأداء
         for (let i = 0; i < particleCount; i++) {
             this.createParticle(heroParticles);
-        }
-
-        // Add animation styles
-        if (!document.querySelector('#particle-styles')) {
-            const style = Utils.createElement('style', {
-                id: 'particle-styles',
-                textContent: `
-                    @keyframes floatParticle {
-                        0% { transform: translate(0, 0); opacity: 0; }
-                        10% { opacity: 1; }
-                        90% { opacity: 1; }
-                        100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0; }
-                    }
-                `
-            });
-            document.head.appendChild(style);
         }
     },
 
     createParticle(container) {
         const particle = Utils.createElement('div', {
             style: `
-                position: absolute; width: ${Math.random() * 5 + 2}px; height: ${Math.random() * 5 + 2}px;
-                background: rgba(255, 255, 255, ${Math.random() * 0.3}); border-radius: 50%;
+                position: absolute; width: ${Math.random() * 3 + 2}px; height: ${Math.random() * 3 + 2}px;
+                background: rgba(255, 255, 255, ${Math.random() * 0.2}); border-radius: 50%;
                 top: ${Math.random() * 100}%; left: ${Math.random() * 100}%;
-                animation: floatParticle ${Math.random() * 20 + 10}s linear infinite;
+                animation: floatParticle ${Math.random() * 15 + 10}s linear infinite;
             `
         });
         container.appendChild(particle);
@@ -891,7 +979,6 @@ const UIComponents = {
 const AboutContactManager = {
     init() {
         this.initScrollAnimations();
-        this.initEnhancedForm();
         this.initInteractiveElements();
     },
 
@@ -905,11 +992,6 @@ const AboutContactManager = {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
-                    // Animate counters in about section
-                    if (entry.target.classList.contains('about-stats')) {
-                        this.animateCounters();
-                    }
                 }
             });
         }, observerOptions);
@@ -919,170 +1001,6 @@ const AboutContactManager = {
             el.classList.add('fade-in-up');
             observer.observe(el);
         });
-    },
-
-    animateCounters() {
-        const counters = document.querySelectorAll('.stat-number[data-count]');
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-count'));
-            const duration = 2000;
-            const step = target / (duration / 16);
-            let current = 0;
-
-            const timer = setInterval(() => {
-                current += step;
-                if (current >= target) {
-                    counter.textContent = target;
-                    clearInterval(timer);
-                } else {
-                    counter.textContent = Math.floor(current);
-                }
-            }, 16);
-        });
-    },
-
-    initEnhancedForm() {
-        const contactForm = document.getElementById('contactForm');
-        if (!contactForm) return;
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await this.handleFormSubmission(contactForm);
-        });
-
-        // Add real-time validation
-        this.initFormValidation(contactForm);
-    },
-
-    initFormValidation(form) {
-        const inputs = form.querySelectorAll('input, textarea, select');
-        
-        inputs.forEach(input => {
-            input.addEventListener('blur', () => {
-                this.validateField(input);
-            });
-
-            input.addEventListener('input', () => {
-                this.clearFieldError(input);
-            });
-        });
-    },
-
-    validateField(field) {
-        const value = field.value.trim();
-        let isValid = true;
-        let errorMessage = '';
-
-        switch(field.type) {
-            case 'email':
-                isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-                errorMessage = AppState.currentLang === 'ar' ? 'البريد الإلكتروني غير صحيح' : 'Invalid email address';
-                break;
-            case 'tel':
-                isValid = /^[\+]?[0-9\s\-\(\)]{8,}$/.test(value);
-                errorMessage = AppState.currentLang === 'ar' ? 'رقم الهاتف غير صحيح' : 'Invalid phone number';
-                break;
-            default:
-                isValid = value.length > 0;
-                errorMessage = AppState.currentLang === 'ar' ? 'هذا الحقل مطلوب' : 'This field is required';
-        }
-
-        if (!isValid && value.length > 0) {
-            this.showFieldError(field, errorMessage);
-            return false;
-        }
-
-        this.clearFieldError(field);
-        return true;
-    },
-
-    showFieldError(field, message) {
-        this.clearFieldError(field);
-        field.style.borderColor = '#ef4444';
-        
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'field-error';
-        errorDiv.style.cssText = `
-            color: #ef4444;
-            font-size: 0.8rem;
-            margin-top: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        `;
-        errorDiv.innerHTML = `<i class='bx bx-error-circle'></i> ${message}`;
-        
-        field.parentNode.appendChild(errorDiv);
-    },
-
-    clearFieldError(field) {
-        field.style.borderColor = '';
-        const existingError = field.parentNode.querySelector('.field-error');
-        if (existingError) {
-            existingError.remove();
-        }
-    },
-
-    async handleFormSubmission(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-        
-        // Validate all fields
-        const inputs = form.querySelectorAll('input, textarea, select');
-        let allValid = true;
-
-        inputs.forEach(input => {
-            if (!this.validateField(input)) {
-                allValid = false;
-            }
-        });
-
-        if (!allValid) {
-            this.showNotification(
-                AppState.currentLang === 'ar' ? 'يرجى تصحيح الأخطاء في النموذج' : 'Please correct the errors in the form',
-                'error'
-            );
-            return;
-        }
-
-        // Show loading state
-        submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>';
-        submitBtn.disabled = true;
-        form.classList.add('form-loading');
-
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            
-            // Success state
-            form.classList.remove('form-loading');
-            form.classList.add('form-success');
-            submitBtn.innerHTML = '<i class="bx bx-check"></i>';
-            
-            this.showNotification(
-                AppState.currentLang === 'ar' ? 'تم إرسال رسالتك بنجاح! سنتواصل معك قريبًا.' : 'Your message has been sent successfully! We will contact you soon.',
-                'success'
-            );
-
-            // Reset form after success
-            setTimeout(() => {
-                form.reset();
-                form.classList.remove('form-success');
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-            }, 3000);
-
-        } catch (error) {
-            // Error state
-            form.classList.remove('form-loading');
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-            
-            this.showNotification(
-                AppState.currentLang === 'ar' ? 'حدث خطأ أثناء الإرسال. يرجى المحاولة مرة أخرى.' : 'An error occurred while sending. Please try again.',
-                'error'
-            );
-        }
     },
 
     initInteractiveElements() {
@@ -1097,85 +1015,30 @@ const AboutContactManager = {
                 method.style.transform = 'translateY(0)';
             });
         });
-
-        // Add click effects to social links
-        const socialLinks = document.querySelectorAll('.social-link');
-        socialLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Add ripple effect
-                this.createRippleEffect(e);
-            });
-        });
-    },
-
-    createRippleEffect(event) {
-        const button = event.currentTarget;
-        const circle = document.createElement('span');
-        const diameter = Math.max(button.clientWidth, button.clientHeight);
-        const radius = diameter / 2;
-
-        circle.style.width = circle.style.height = `${diameter}px`;
-        circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
-        circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
-        circle.classList.add('ripple');
-
-        const ripple = button.getElementsByClassName('ripple')[0];
-        if (ripple) {
-            ripple.remove();
-        }
-
-        button.appendChild(circle);
-    },
-
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6366f1'};
-            color: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            z-index: 10000;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateX(150%);
-            transition: transform 0.3s ease;
-            max-width: 400px;
-        `;
-
-        notification.innerHTML = `
-            <i class='bx ${type === 'success' ? 'bx-check-circle' : type === 'error' ? 'bx-error-circle' : 'bx-info-circle'}'></i>
-            <span>${message}</span>
-            <button class="notification-close" style="background: none; border: none; color: white; cursor: pointer;">
-                <i class='bx bx-x'></i>
-            </button>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Animate in
-        setTimeout(() => notification.style.transform = 'translateX(0)', 100);
-
-        // Close functionality
-        notification.querySelector('.notification-close').addEventListener('click', () => {
-            this.removeNotification(notification);
-        });
-
-        // Auto remove
-        setTimeout(() => this.removeNotification(notification), 5000);
-    },
-
-    removeNotification(notification) {
-        notification.style.transform = 'translateX(150%)';
-        setTimeout(() => notification.remove(), 300);
     }
 };
+
+// ============================================
+// SOCIAL LINKS FIX
+// ============================================
+function initializeSocialLinks() {
+    const socialLinks = document.querySelectorAll('.social-link');
+    
+    socialLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (href && href !== '#') {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.open(this.href, '_blank', 'noopener,noreferrer');
+            });
+        } else {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Social media coming soon');
+            });
+        }
+    });
+}
 
 // ============================================
 // INITIALIZATION
@@ -1189,39 +1052,24 @@ document.addEventListener('DOMContentLoaded', function() {
     UIComponents.init();
     AboutContactManager.init();
     
-    // Debug info
-    setTimeout(() => {
-        console.log('Roya Design Website Initialized Successfully!');
-    }, 2000);
-});
-
-// Fix social media links
-function initializeSocialLinks() {
-  const socialLinks = document.querySelectorAll('.social-link');
-  
-  socialLinks.forEach(link => {
-    // Remove and re-add to clear any event listeners
-    const newLink = link.cloneNode(true);
-    link.parentNode.replaceChild(newLink, link);
+    // Initialize social links
+    setTimeout(initializeSocialLinks, 1000);
     
-    // Add click handler for valid links
-    const href = newLink.getAttribute('href');
-    if (href && href !== '#') {
-      newLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        window.open(this.href, '_blank', 'noopener,noreferrer');
-      });
-    } else {
-      // For placeholder links, prevent default
-      newLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        console.log('Social media coming soon');
-      });
+    // Add particle animation styles
+    if (!document.querySelector('#particle-styles')) {
+        const style = document.createElement('style');
+        style.id = 'particle-styles';
+        style.textContent = `
+            @keyframes floatParticle {
+                0% { transform: translate(0, 0); opacity: 0; }
+                10% { opacity: 1; }
+                90% { opacity: 1; }
+                100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     }
-  });
-}
-
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(initializeSocialLinks, 1000);
+    
+    // Debug info
+    console.log('Roya Design Website Initialized Successfully!');
 });
