@@ -30,36 +30,36 @@ const projectsData = {
             { ar: 'إضاءة', en: 'Lighting' },
             { ar: 'ديكور', en: 'Decor' }
         ],
-        images: [
-            'images/ayash/c/0011.jpg', 'images/ayash/c/0033.jpg', 'images/ayash/c/0044.jpg',
-            'images/ayash/d/002.jpg', 'images/ayash/d/0002.jpg', 'images/ayash/d/003.jpg',
-            'images/ayash/d/004.jpg', 'images/ayash/d/011.jpg', 'images/ayash/d/012.jpg',
-            'images/ayash/d/013.jpg', 'images/ayash/d/0054.jpg', 'images/ayash/e/02.jpg',
-            'images/ayash/e/03.jpg', 'images/ayash/f/001.jpg', 'images/ayash/f/002.jpg',
-            'images/ayash/f/003.jpg', 'images/ayash/f/004.jpg', 'images/ayash/f/005.jpg',
-            'images/ayash/f/006.jpg', 'images/ayash/f/007.jpg', 'images/ayash/f/008.jpg',
-            'images/ayash/h/01.jpg', 'images/ayash/h/04.jpg', 'images/ayash/i/1.jpg',
-            'images/ayash/i/2.jpg', 'images/ayash/i/03.jpg', 'images/ayash/i/04.jpg',
-            'images/ayash/i/08.jpg', 'images/ayash/j/001.jpg', 'images/ayash/j/002.jpg',
-            'images/ayash/j/003.jpg', 'images/ayash/j/004.jpg', 'images/ayash/j/005.jpg',
-            'images/ayash/j/006.jpg', 'images/ayash/m/01.jpg', 'images/ayash/m/02.jpg',
-            'images/ayash/m/03.jpg', 'images/ayash/m/04.jpg', 'images/ayash/m/05.jpg',
-            'images/ayash/m/06.jpg', 'images/ayash/m/07.jpg', 'images/ayash/o/001.jpg',
-            'images/ayash/o/002.jpg', 'images/ayash/p/01.jpg', 'images/ayash/p/2.jpg',
-            'images/ayash/p/3.jpg', 'images/ayash/p/4.jpg', 'images/ayash/p/5.jpg',
-            'images/ayash/q/01.jpg', 'images/ayash/q/02.jpg', 'images/ayash/q/03.jpg',
-            'images/ayash/q/04.jpg', 'images/ayash/q/05.jpg', 'images/ayash/r/06.jpg',
-            'images/ayash/r/07.jpg', 'images/ayash/s/001.jpg', 'images/ayash/s/002.jpg',
-            'images/ayash/s/003.jpg', 'images/ayash/s/004.jpg', 'images/ayash/s/005.jpg',
-            'images/ayash/s/006.jpg', 'images/ayash/s/007.jpg', 'images/ayash/t/001.jpg',
-            'images/ayash/t/004.jpg', 'images/ayash/t/005.jpg', 'images/ayash/t/006.jpg',
-            'images/ayash/t/007.jpg', 'images/ayash/t/008.jpg', 'images/ayash/t/009.jpg',
-            'images/ayash/t/010.jpg', 'images/ayash/u/001.jpg', 'images/ayash/u/002.jpg',
-            'images/ayash/u/003.jpg', 'images/ayash/u/004.jpg', 'images/ayash/u/005.jpg',
-            'images/ayash/u/006.jpg', 'images/ayash/v/1.jpg', 'images/ayash/v/2.jpg',
-            'images/ayash/v/03.jpg', 'images/ayash/y/01.jpg', 'images/ayash/y/02.jpg',
-            'images/ayash/y/03.jpg', 'images/ayash/y/04.jpg', 'images/ayash/y/05.jpg',
-            'images/ayash/z/0055.jpg', 'images/ayash/z/0066.jpg'
+images: [
+            'images/ayash/c/0011.webp', 'images/ayash/c/0033.webp', 'images/ayash/c/0044.webp',
+            'images/ayash/d/002.webp', 'images/ayash/d/0002.webp', 'images/ayash/d/003.webp',
+            'images/ayash/d/004.webp', 'images/ayash/d/011.webp', 'images/ayash/d/012.webp',
+            'images/ayash/d/013.webp', 'images/ayash/d/0054.webp', 'images/ayash/e/02.webp',
+            'images/ayash/e/03.webp', 'images/ayash/f/001.webp', 'images/ayash/f/002.webp',
+            'images/ayash/f/003.webp', 'images/ayash/f/004.webp', 'images/ayash/f/005.webp',
+            'images/ayash/f/006.webp', 'images/ayash/f/007.webp', 'images/ayash/f/008.webp',
+            'images/ayash/h/01.webp', 'images/ayash/h/04.webp', 'images/ayash/i/1.webp',
+            'images/ayash/i/2.webp', 'images/ayash/i/03.webp', 'images/ayash/i/04.webp',
+            'images/ayash/i/08.webp', 'images/ayash/j/001.webp', 'images/ayash/j/002.webp',
+            'images/ayash/j/003.webp', 'images/ayash/j/004.webp', 'images/ayash/j/005.webp',
+            'images/ayash/j/006.webp', 'images/ayash/m/01.webp', 'images/ayash/m/02.webp',
+            'images/ayash/m/03.webp', 'images/ayash/m/04.webp', 'images/ayash/m/05.webp',
+            'images/ayash/m/06.webp', 'images/ayash/m/07.webp', 'images/ayash/o/001.webp',
+            'images/ayash/o/002.webp', 'images/ayash/p/01.webp', 'images/ayash/p/2.webp',
+            'images/ayash/p/3.webp', 'images/ayash/p/4.webp', 'images/ayash/p/5.webp',
+            'images/ayash/q/01.webp', 'images/ayash/q/02.webp', 'images/ayash/q/03.webp',
+            'images/ayash/q/04.webp', 'images/ayash/q/05.webp', 'images/ayash/r/06.webp',
+            'images/ayash/r/07.webp', 'images/ayash/s/001.webp', 'images/ayash/s/002.webp',
+            'images/ayash/s/003.webp', 'images/ayash/s/004.webp', 'images/ayash/s/005.webp',
+            'images/ayash/s/006.webp', 'images/ayash/s/007.webp', 'images/ayash/t/001.webp',
+            'images/ayash/t/004.webp', 'images/ayash/t/005.webp', 'images/ayash/t/006.webp',
+            'images/ayash/t/007.webp', 'images/ayash/t/008.webp', 'images/ayash/t/009.webp',
+            'images/ayash/t/010.webp', 'images/ayash/u/001.webp', 'images/ayash/u/002.webp',
+            'images/ayash/u/003.webp', 'images/ayash/u/004.webp', 'images/ayash/u/005.webp',
+            'images/ayash/u/006.webp', 'images/ayash/v/1.webp', 'images/ayash/v/2.webp',
+            'images/ayash/v/03.webp', 'images/ayash/y/01.webp', 'images/ayash/y/02.webp',
+            'images/ayash/y/03.webp', 'images/ayash/y/04.webp', 'images/ayash/y/05.webp',
+            'images/ayash/z/0055.webp', 'images/ayash/z/0066.webp'
         ]
     },
     project2: {
@@ -84,7 +84,7 @@ const projectsData = {
             { ar: 'إضاءة', en: 'Lighting' }
         ],
         images: Array.from({ length: 16 }, (_, i) => 
-            `images/elura/${String(i + 1).padStart(3, '0')}.jpg`
+            `images/elura/${String(i + 1).padStart(3, '0')}.WebP`
         )
     },
     project3: {
