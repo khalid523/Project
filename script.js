@@ -108,23 +108,23 @@ const projectsData = {
             { ar: 'ديكور فني', en: 'Artistic Decor' },
             { ar: 'إضاءة متقدمة', en: 'Advanced Lighting' }
         ],
-        images: [
-            'images/abdallah/19.jpg', 'images/abdallah/0001.jpg', 'images/abdallah/2-ph.jpg',
-            'images/abdallah/2.jpg', 'images/abdallah/005.jpg', 'images/abdallah/007.jpg',
-            'images/abdallah/0010.jpg', 'images/abdallah/0011.jpg', 'images/abdallah/0021.jpg',
-            'images/abdallah/22.jpg', 'images/abdallah/34.jpg', 'images/abdallah/0100.jpg',
-            'images/abdallah/0101.jpg', 'images/abdallah/112.jpg', 'images/abdallah/00122.jpg',
-            'images/abdallah/0202.jpg', 'images/abdallah/0212.jpg', 'images/abdallah/0303.jpg',
-            'images/abdallah/00333.jpg', 'images/abdallah/360.jpg', 'images/abdallah/0404.jpg',
-            'images/abdallah/00439.jpg', 'images/abdallah/0505.jpg', 'images/abdallah/0606.jpg',
-            'images/abdallah/0707.jpg', 'images/abdallah/0808.jpg', 'images/abdallah/0909.jpg',
-            'images/abdallah/02222.jpg', 'images/abdallah/0003331.jpg', 'images/abdallah/003338.jpg',
-            'images/abdallah/4111.jpg', 'images/abdallah/004452.jpg', 'images/abdallah/004546.jpg',
-            'images/abdallah/08799.jpg', 'images/abdallah/12344.jpg', 'images/abdallah/33434.jpg',
-            'images/abdallah/333344.jpg', 'images/abdallah/0545503.jpg', 'images/abdallah/00033122231.jpg',
-            'images/abdallah/0044222252.jpg', 'images/abdallah/0545502222223.jpg',
-            ...Array.from({ length: 18 }, (_, i) => `images/abdallah/a.${i + 1}.jpg`).filter((_, i) => i !== 18)
-        ]
+images: [
+    'images/abdallah/abdallah.WebP', 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
+    'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah4.WebP', 'images/abdallah/abdallah5.WebP',
+    'images/abdallah/abdallah6.WebP', 'images/abdallah/abdallah7.WebP', 'images/abdallah/abdallah8.WebP',
+    'images/abdallah/abdallah9.WebP', 'images/abdallah/abdallah10.WebP', 'images/abdallah/abdallah11.WebP',
+    'images/abdallah/abdallah12.WebP', 'images/abdallah/abdallah13.WebP', 'images/abdallah/abdallah14.WebP',
+    'images/abdallah/abdallah15.WebP', 'images/abdallah/abdallah16.WebP', 'images/abdallah/abdallah17.WebP',
+    'images/abdallah/abdallah18.WebP', 'images/abdallah/abdallah19.WebP', 'images/abdallah/abdallah20.WebP',
+    'images/abdallah/abdallah21.WebP', 'images/abdallah/abdallah22.WebP', 'images/abdallah/abdallah23.WebP',
+    'images/abdallah/abdallah24.WebP', 'images/abdallah/abdallah25.WebP', 'images/abdallah/abdallah26.WebP',
+    'images/abdallah/abdallah27.WebP', 'images/abdallah/abdallah28.WebP', 'images/abdallah/abdallah29.WebP',
+    'images/abdallah/abdallah30.WebP', 'images/abdallah/abdallah31.WebP', 'images/abdallah/abdallah32.WebP',
+    'images/abdallah/abdallah33.WebP', 'images/abdallah/abdallah34.WebP', 'images/abdallah/abdallah35.WebP',
+    'images/abdallah/abdallah36.WebP', 'images/abdallah/abdallah37.WebP', 'images/abdallah/abdallah38.WebP',
+    'images/abdallah/abdallah39.WebP', 'images/abdallah/abdallah40.WebP',
+    ...Array.from({ length: 23 }, (_, i) => `images/abdallah/abdallah${i + 41}.WebP`)
+]
     }
 };
 
