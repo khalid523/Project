@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roya Design - رؤية ديزاين</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loader">
+            <div class="loader-square"></div>
+            <div class="loader-square"></div>
+            <div class="loader-square"></div>
+            <div class="loader-square"></div>
+        </div>
+    </div>
+
+    <div class="lang-toggle">
+        <button id="langBtn" class="lang-btn">
+            <span>EN</span>
+            <i class='bx bx-globe'></i>
+        </button>
+    </div>
+
+    <button id="backToTop" class="back-to-top">
+        <i class='bx bx-chevron-up'></i>
+    </button>
+
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#home" class="nav-logo">
+                    <!-- Professional Logo Container -->
+                    <div class="logo-container">
+                        <!-- Dark Logo for Light Mode -->
+                        <div class="logo-dark">
+                            <img src="images/logoBlack.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
+                        </div>
+                        
+                        <!-- White Logo for Dark Mode -->
+                        <div class="logo-light">
+                            <img src="images/logo.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
+                        </div>
+                        
+                        <!-- Logo Glow Effect -->
+                        <div class="logo-glow"></div>
+                    </div>
+                    
+                    <!-- Optional: Text Logo for smaller screens -->
+                    <div class="logo-text">
+                        <span class="logo-title" data-en="Roya Design" data-ar="رؤية ديزاين">رؤية ديزاين</span>
+                        <span class="logo-subtitle" data-en="Design & Furniture" data-ar="التصميم والأثاث">التصميم والأثاث</span>
+                    </div>
+                </a>
+                
+                <!-- Navigation Menu -->
+                <div class="nav-menu" id="navMenu">
+                    <a href="#home" class="nav-link active" data-en="Home" data-ar="الرئيسية">الرئيسية</a>
+                    <a href="#services" class="nav-link" data-en="Services" data-ar="خدماتنا">خدماتنا</a>
+                    <a href="#portfolio" class="nav-link" data-en="Portfolio" data-ar="معرض الأعمال">معرض الأعمال</a>
+                    <a href="#about" class="nav-link" data-en="About" data-ar="من نحن">من نحن</a>
+                    <a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">اتصل بنا</a>
+                </div>
+
+                <!-- Navigation Actions -->
+                <div class="nav-actions">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class='bx bx-moon'></i>
+                    </button>
+                    <div class="hamburger" id="hamburger">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <div class="hero-particles" id="heroParticles"></div>
+        </div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span data-en="Premium Interior Design Agency" data-ar="وكالة تصميم داخلي متميزة">وكالة تصميم داخلي متميزة</span>
+                </div>
+                
+                <h1 class="hero-title">
+                    <span data-en="Creative Interior Solutions" data-ar="حلول تصميم داخلي إبداعية">حلول تصميم داخلي إبداعية</span>
+                    <span class="title-highlight" data-en="That Inspire" data-ar="تلهم">تلهم</span>
+                </h1>
+                
+                <p class="hero-description" data-en="Transforming spaces into stunning living experiences that enhance your lifestyle and elevate your everyday living." 
+                   data-ar="تحويل المساحات إلى تجارب معيشية مذهلة تعزز نمط حياتك وترتقي بالمعيشة اليومية">
+                   تحويل المساحات إلى تجارب معيشية مذهلة تعزز نمط حياتك وترتقي بالمعيشة اليومية
+                </p>
+                
+                <div class="hero-actions">
+                    <button class="cta-button primary" data-en="Get Started" data-ar="ابدأ الآن">
+                        <span>ابدأ الآن</span>
+                        <i class='bx bx-chevron-left'></i>
+                    </button>
+                    <button class="cta-button secondary" data-en="View Portfolio" data-ar="عرض الأعمال">
+                        <span>عرض الأعمال</span>
+                        <i class='bx bx-play-circle'></i>
+                    </button>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="150">0</div>
+                        <div class="stat-label" data-en="Projects Completed" data-ar="مشروع مكتمل">مشروع مكتمل</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label" data-en="Happy Clients" data-ar="عميل سعيد">عميل سعيد</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="5">0</div>
+                        <div class="stat-label" data-en="Years Experience" data-ar="سنوات خبرة">سنوات خبرة</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-visual">
+                <div class="floating-card card-1">
+                    <i class='bx bx-home'></i>
+                    <span data-en="Residential Design" data-ar="تصميم سكني">تصميم سكني</span>
+                </div>
+                <div class="floating-card card-2">
+                    <i class='bx bx-building'></i>
+                    <span data-en="Commercial Design" data-ar="تصميم تجاري">تصميم تجاري</span>
+                </div>
+                <div class="floating-card card-3">
+                    <i class='bx bx-chair'></i>
+                    <span data-en="Furniture Design" data-ar="تصميم أثاث">تصميم أثاث</span>
+                </div>
+                
+                <div class="main-visual">
+                    <div class="visual-container">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Interior Design Workspace" class="visual-image">
+                        <div class="visual-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-en="What We Offer" data-ar="ما نقدمه">ما نقدمه</div>
+                <h2 class="section-title" data-en="Our Services" data-ar="خدماتنا">خدماتنا</h2>
+                <p class="section-description" data-en="Comprehensive interior design solutions tailored to transform your spaces" 
+                   data-ar="حلول تصميم داخلي شاملة مصممة خصيصًا لتحويل مساحاتك">
+                   حلول تصميم داخلي شاملة مصممة خصيصًا لتحويل مساحاتك
+                </p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class='bx bx-home'></i>
+                        <div class="icon-shape"></div>
+                    </div>
+                    <h3 data-en="Residential Design" data-ar="التصميم السكني">التصميم السكني</h3>
+                    <p data-en="Creating beautiful and functional living spaces that reflect your personality and enhance your daily life." 
+                       data-ar="نصنع مساحات معيشية جميلة وعملية تعكس شخصيتك وتعزز حياتك اليومية">
+                       نصنع مساحات معيشية جميلة وعملية تعكس شخصيتك وتعزز حياتك اليومية
+                    </p>
+                    <ul class="service-features">
+                        <li data-en="Space Planning" data-ar="تخطيط المساحات">تخطيط المساحات</li>
+                        <li data-en="Color Consultation" data-ar="استشارات الألوان">استشارات الألوان</li>
+                        <li data-en="Furniture Selection" data-ar="اختيار الأثاث">اختيار الأثاث</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class='bx bx-building'></i>
+                        <div class="icon-shape"></div>
+                    </div>
+                    <h3 data-en="Commercial Design" data-ar="التصميم التجاري">التصميم التجاري</h3>
+                    <p data-en="Designing professional spaces that boost productivity, impress clients, and reflect your brand identity." 
+                       data-ar="تصميم مساحات مهنية تعزز الإنتاجية، تبهر العملاء وتعكس هوية علامتك التجارية">
+                       تصميم مساحات مهنية تعزز الإنتاجية، تبهر العملاء وتعكس هوية علامتك التجارية
+                    </p>
+                    <ul class="service-features">
+                        <li data-en="Office Design" data-ar="تصميم المكاتب">تصميم المكاتب</li>
+                        <li data-en="Retail Spaces" data-ar="المساحات التجارية">المساحات التجارية</li>
+                        <li data-en="Brand Integration" data-ar="دمج الهوية">دمج الهوية</li>
+                    </ul>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class='bx bx-chair'></i>
+                        <div class="icon-shape"></div>
+                    </div>
+                    <h3 data-en="Furniture Design" data-ar="تصميم الأثاث">تصميم الأثاث</h3>
+                    <p data-en="Custom furniture pieces crafted with precision to fit your space perfectly and reflect your unique style." 
+                       data-ar="قطع أثاث مخصصة مصنوعة بدقة لتناسب مساحتك تمامًا وتعكس أسلوبك الفريد">
+                       قطع أثاث مخصصة مصنوعة بدقة لتناسب مساحتك تمامًا وتعكس أسلوبك الفريد
+                    </p>
+                    <ul class="service-features">
+                        <li data-en="Custom Furniture" data-ar="أثاث مخصص">أثاث مخصص</li>
+                        <li data-en="Material Selection" data-ar="اختيار المواد">اختيار المواد</li>
+                        <li data-en="Quality Craftsmanship" data-ar="جودة الصنعة">جودة الصنعة</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <section class="projects-section">
+                <div class="section-header">
+                    <div class="section-badge" data-en="Our Work" data-ar="أعمالنا">أعمالنا</div>
+                    <h2 class="section-title" data-en="Featured Projects" data-ar="المشاريع المميزة">المشاريع المميزة</h2>
+                    <p class="section-description" data-en="Explore our latest design projects and creative solutions" 
+                       data-ar="استكشف أحدث مشاريعنا التصميمية والحلول الإبداعية">
+                       استكشف أحدث مشاريعنا التصميمية والحلول الإبداعية
+                    </p>
+                </div>
+
+                <div class="projects-grid" id="projectsGrid">
+                    <!-- Projects will be dynamically loaded here -->
+                </div>
+            </section>
+        </div>
+
+        <!-- Gallery Modal -->
+        <div class="gallery-modal" id="galleryModal">
+            <div class="modal-wrapper">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="modalTitle">اسم المشروع</h3>
+                    <button class="modal-close" id="modalClose">
+                        <i class='bx bx-x'></i>
+                    </button>
+                </div>
+                
+                <div class="gallery-main">
+                    <div class="main-image-container">
+                        <img class="main-image" id="mainImage" src="" alt="Project Image">
+                        <div class="image-counter" id="imageCounter">1 / 1</div>
+                    </div>
+                    <button class="gallery-nav prev" id="prevBtn">
+                        <i class='bx bx-chevron-right'></i>
+                    </button>
+                    <button class="gallery-nav next" id="nextBtn">
+                        <i class='bx bx-chevron-left'></i> 
+                    </button>
+                </div>
+                
+                <div class="gallery-thumbnails" id="thumbnailsContainer">
+                    <!-- Thumbnails will be dynamically loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-badge" data-en="About Us" data-ar="من نحن">من نحن</div>
+                <h2 class="section-title" data-en="Our Story" data-ar="قصتنا">قصتنا</h2>
+                <p class="section-description" data-en="Learn more about our journey and passion for interior design" 
+                   data-ar="تعرف على المزيد عن رحلتنا وشغفنا بالتصميم الداخلي">
+                   تعرف على المزيد عن رحلتنا وشغفنا بالتصميم الداخلي
+                </p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-text">
+                    <!-- Optimized Story Section -->
+                    <div class="about-story-grid">
+                        <div class="story-item">
+                            <div class="story-icon">
+                                <i class='bx bx-target-lock'></i>
+                            </div>
+                            <div class="story-content">
+                                <h3 data-en="Our Vision" data-ar="رؤيتنا">رؤيتنا</h3>
+                                <p data-en="At Roya Design, we believe that every space tells a story. Our vision is to transform ordinary spaces into extraordinary living experiences that reflect your personality and enhance your quality of life."
+                                   data-ar="في رؤية ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.">
+                                   في رؤية ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="story-item">
+                            <div class="story-icon">
+                                <i class='bx bx-rocket'></i>
+                            </div>
+                            <div class="story-content">
+                                <h3 data-en="Our Mission" data-ar="مهمتنا">مهمتنا</h3>
+                                <p data-en="We are committed to creating innovative interior design solutions that blend aesthetics with functionality, delivering spaces that inspire, comfort, and elevate everyday living."
+                                   data-ar="نحن ملتزمون بخلق حلول تصميم داخلي مبتكرة تدمج بين الجماليات والوظيفية، لتقديم مساحات تلهم، ترتاح وترتقي بالمعيشة اليومية.">
+                                   نحن ملتزمون بخلق حلول تصميم داخلي مبتكرة تدمج بين الجماليات والوظيفية، لتقديم مساحات تلهم، ترتاح وترتقي بالمعيشة اليومية.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Optimized Values Section -->
+                    <div class="about-values">
+                        <h3 data-en="Our Values" data-ar="قيمنا">قيمنا</h3>
+                        <div class="values-grid">
+                            <div class="value-item" data-aos="fade-up">
+                                <div class="value-icon">
+                                    <i class='bx bx-bulb'></i>
+                                </div>
+                                <h4 data-en="Innovation" data-ar="الابتكار">الابتكار</h4>
+                                <p data-en="Pushing boundaries with creative design solutions"
+                                   data-ar="دفع الحدود بحلول تصميم إبداعية">
+                                   دفع الحدود بحلول تصميم إبداعية
+                                </p>
+                            </div>
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="100">
+                                <div class="value-icon">
+                                    <i class='bx bx-star'></i>
+                                </div>
+                                <h4 data-en="Excellence" data-ar="التميز">التميز</h4>
+                                <p data-en="Delivering superior quality in every project"
+                                   data-ar="تقديم جودة فائقة في كل مشروع">
+                                   تقديم جودة فائقة في كل مشروع
+                                </p>
+                            </div>
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="200">
+                                <div class="value-icon">
+                                    <i class='bx bx-heart'></i>
+                                </div>
+                                <h4 data-en="Passion" data-ar="الشغف">الشغف</h4>
+                                <p data-en="Driven by our love for transformative design"
+                                   data-ar="مدفوعين بحبنا للتصميم التحويلي">
+                                   مدفوعين بحبنا للتصميم التحويلي
+                                </p>
+                            </div>
+                            <div class="value-item" data-aos="fade-up" data-aos-delay="300">
+                                <div class="value-icon">
+                                    <i class='bx bx-group'></i>
+                                </div>
+                                <h4 data-en="Collaboration" data-ar="التعاون">التعاون</h4>
+                                <p data-en="Working closely with clients to realize their vision"
+                                   data-ar="العمل عن كثب مع العملاء لتحقيق رؤيتهم">
+                                   العمل عن كثب مع العملاء لتحقيق رؤيتهم
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-visual">
+                    <div class="visual-container" data-aos="zoom-in">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                             alt="Roya Design Team" class="about-image">
+                        <div class="experience-badge">
+                            <div class="exp-number">5+</div>
+                            <div class="exp-text" data-en="Years Experience" data-ar="سنوات خبرة">سنوات خبرة</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="section-header">
+                        <div class="section-badge" data-en="Get In Touch" data-ar="تواصل معنا">تواصل معنا</div>
+                        <h2 class="section-title" data-en="Let's Create Something Amazing Together" data-ar="لنصنع شيئًا مذهلاً معًا">لنصنع شيئًا مذهلاً معًا</h2>
+                        <p class="section-description" data-en="Ready to transform your space into a masterpiece? Contact us today for a complimentary design consultation and let's bring your vision to life." 
+                           data-ar="مستعد لتحويل مساحتك إلى تحفة فنية؟ تواصل معنا اليوم للحصول على استشارة تصميم مجانية ولنحقق رؤيتك معًا.">
+                           مستعد لتحويل مساحتك إلى تحفة فنية؟ تواصل معنا اليوم للحصول على استشارة تصميم مجانية ولنحقق رؤيتك معًا.
+                        </p>
+                    </div>
+                    
+                    <!-- Optimized Contact Methods -->
+                    <div class="contact-methods">
+                        <div class="contact-method" data-aos="fade-up">
+                            <div class="method-icon">
+                                <i class='bx bx-phone'></i>
+                            </div>
+                            <div class="method-info">
+                                <h4 data-en="Phone" data-ar="هاتف">هاتف</h4>
+                                <div class="phone-numbers">
+                                    <a href="tel:0791805045" class="phone-link">
+                                        <i class='bx bx-phone-call'></i>
+                                        0791805045
+                                    </a>
+                                    <a href="tel:0796080119" class="phone-link">
+                                        <i class='bx bx-phone-call'></i>
+                                        0796080119
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="100">
+                            <div class="method-icon">
+                                <i class='bx bx-envelope'></i>
+                            </div>
+                            <div class="method-info">
+                                <h4 data-en="Email" data-ar="بريد إلكتروني">بريد إلكتروني</h4>
+                                <a href="mailto:Royadesign793@gmail.com" class="email-link">
+                                    <i class='bx bx-envelope-open'></i>
+                                  Royadesign793@gmail.com
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method" data-aos="fade-up" data-aos-delay="200">
+                            <div class="method-icon">
+                                <i class='bx bx-map'></i>
+                            </div>
+                            <div class="method-info">
+                                <h4 data-en="Address" data-ar="عنوان">عنوان</h4>
+                                <div class="address-container">
+                                    <p data-en="Jordan, Amman" data-ar="الأردن، عمان">الأردن، عمان</p>
+                                    <a href="https://maps.app.goo.gl/Yy6xpKiaXkdghGTq7?g_st=iw" target="_blank" rel="noopener" class="location-link">
+                                        <span data-en="View on Map" data-ar="عرض على الخريطة">عرض على الخريطة</span>
+                                        <i class='bx bx-map'></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Business Hours -->
+                    <div class="business-hours" data-aos="fade-up" data-aos-delay="300">
+                        <h4 data-en="Business Hours" data-ar="ساعات العمل">ساعات العمل</h4>
+                        <div class="hours-list">
+                            <div class="hour-item">
+                                <span data-en="Saturday - Thursday" data-ar="السبت - الخميس">السبت - الخميس</span>
+                                <span data-en="9AM - 6PM" data-ar="9 ص - 6 م">9 ص - 6 م</span>
+                            </div>
+                            <div class="hour-item">
+                                <span data-en="Friday" data-ar="الجمعة">الجمعة</span>
+                                <span class="closed" data-en="Closed" data-ar="مغلق">مغلق</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#home" class="footer-logo">
+                        <!-- Professional Logo Container -->
+                        <div class="logo-container">
+                            <!-- Dark Logo for Light Mode -->
+                            <div class="logo-dark">
+                                <img src="images/logoBlack.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
+                            </div>
+                            
+                            <!-- White Logo for Dark Mode -->
+                            <div class="logo-light">
+                                <img src="images/logo.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
+                            </div>
+                            
+                            <!-- Logo Glow Effect -->
+                            <div class="logo-glow"></div>
+                        </div>
+                        
+                        <!-- Logo Text -->
+                        <div class="logo-text">
+                            <span class="logo-title" data-en="Roya Design" data-ar="رؤية ديزاين">رؤية ديزاين</span>
+                            <span class="logo-subtitle" data-en="Interior Design & Furniture" data-ar="التصميم الداخلي والأثاث">التصميم الداخلي والأثاث</span>
+                        </div>
+                    </a>
+                    <p class="footer-description" data-en="Transforming spaces with innovative interior design solutions that blend creativity with functionality. We create environments that inspire and elevate everyday living." 
+                       data-ar="نحول المساحات بحلول تصميم داخلي مبتكرة تدمج بين الإبداع والوظيفية. نصنع بيئات تلهم وترتقي بالمعيشة اليومية">
+                       نحول المساحات بحلول تصميم داخلي مبتكرة تدمج بين الإبداع والوظيفية. نصنع بيئات تلهم وترتقي بالمعيشة اليومية
+                    </p>
+<div class="footer-social">
+  <a href="https://www.instagram.com/roya_design_and_furniture?igsh=MXd6cjNocWNwc2l6aw=="
+     class="social-link"
+     aria-label="Instagram"
+     target="_blank"
+     rel="noopener noreferrer">
+    <i class='bx bxl-instagram'></i>
+  </a>
+
+  <!-- Facebook -->
+  <a href="https://www.facebook.com/share/1AGasKvaVG/?mibextid=wwXIfr"
+     class="social-link"
+     aria-label="Facebook"
+     target="_blank"
+     rel="noopener noreferrer">
+    <i class='bx bxl-facebook'></i>
+  </a>
+
+  <!-- Threads -->
+<a href="https://www.threads.com/@roya_design_and_furniture?igshid=NTc4MTIwNjQ2YQ=="
+   class="social-link"
+   aria-label="Threads"
+   target="_blank"
+   rel="noopener noreferrer">
+  <i class='bx bx-message-rounded'></i>
+</a>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/message/QIHC2P4ZAHABG1"
+     class="social-link"
+     aria-label="WhatsApp"
+     target="_blank"
+     rel="noopener noreferrer">
+    <i class='bx bxl-whatsapp'></i>
+  </a>
+</div>
+                </a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Our Services" data-ar="خدماتنا">خدماتنا</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services" data-en="Residential Design" data-ar="التصميم السكني">التصميم السكني</a></li>
+                        <li><a href="#services" data-en="Commercial Design" data-ar="التصميم التجاري">التصميم التجاري</a></li>
+                        <li><a href="#services" data-en="Furniture Design" data-ar="تصميم الأثاث">تصميم الأثاث</a></li>
+                        <li><a href="#services" data-en="Space Planning" data-ar="تخطيط المساحات">تخطيط المساحات</a></li>
+                        <li><a href="#services" data-en="Lighting Design" data-ar="تصميم الإضاءة">تصميم الإضاءة</a></li>
+                        <li><a href="#services" data-en="Custom Furniture" data-ar="أثاث مخصص">أثاث مخصص</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Quick Links" data-ar="روابط سريعة">روابط سريعة</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
+                        <li><a href="#services" data-en="Services" data-ar="خدماتنا">خدماتنا</a></li>
+                        <li><a href="#portfolio" data-en="Portfolio" data-ar="معرض الأعمال">معرض الأعمال</a></li>
+                        <li><a href="#about" data-en="About Us" data-ar="من نحن">من نحن</a></li>
+                        <li><a href="#contact" data-en="Contact" data-ar="اتصل بنا">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 data-en="Contact Info" data-ar="معلومات الاتصال">معلومات الاتصال</h4>
+                    <div class="footer-contact">
+                        <div class="contact-item">
+                            <i class='bx bx-phone'></i>
+                            <div>
+                                <a href="tel:0791805045">0791805045</a>
+                                <a href="tel:0796080119">0796080119</a>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class='bx bx-envelope'></i>
+                            <a href="mailto:Royadesign793@gmail.com">Royadesign793@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <i class='bx bx-map'></i>
+                            <span data-en="Amman, Jordan" data-ar="عمان، الأردن">عمان، الأردن</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class='bx bx-time'></i>
+                            <span data-en="Sat - Thu: 9AM - 6PM" data-ar="الأحد - الخميس: 9 ص - 6 م">السبت - الخميس: 9 ص - 6 م</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p data-en="© 2024 Roya Design. All rights reserved." data-ar="© 2024 رؤية ديزاين. جميع الحقوق محفوظة.">© 2024 رؤية ديزاين. جميع الحقوق محفوظة.</p>
+                <div class="footer-bottom-links">
+                    <a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</a>
+                    <a href="#" data-en="Terms of Service" data-ar="شروط الخدمة">شروط الخدمة</a>
+                    <a href="#" data-en="Cookie Policy" data-ar="سياسة الكوكيز">سياسة الكوكيز</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="under-footer">
+        <div class="container">
+            <div class="color-line"></div>
+            <p data-en="Crafted with passion by Roya Design Team" data-ar="صنع بشغف من قبل فريق رؤية ديزاين">صنع بشغف من قبل فريق رؤية ديزاين</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
