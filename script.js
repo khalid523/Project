@@ -77,7 +77,7 @@ const projectsData = {
         },
         style: { ar: 'حديث متميز', en: 'Modern Premium' },
         location: { ar: 'عمّان، الأردن', en: 'Amman, Jordan' },
-          tech: [
+        tech: [
             { ar: 'هوية بصرية', en: 'Visual Identity' },
             { ar: 'تصميم مساحات', en: 'Space Design' },
             { ar: 'أثاث مكتبي', en: 'Office Furniture' },
@@ -108,23 +108,23 @@ const projectsData = {
             { ar: 'ديكور فني', en: 'Artistic Decor' },
             { ar: 'إضاءة متقدمة', en: 'Advanced Lighting' }
         ],
-images: [
-    'images/abdallah/abdallah.WebP', 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
-    'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah4.WebP', 'images/abdallah/abdallah5.WebP',
-    'images/abdallah/abdallah6.WebP', 'images/abdallah/abdallah7.WebP', 'images/abdallah/abdallah8.WebP',
-    'images/abdallah/abdallah9.WebP', 'images/abdallah/abdallah10.WebP', 'images/abdallah/abdallah11.WebP',
-    'images/abdallah/abdallah12.WebP', 'images/abdallah/abdallah13.WebP', 'images/abdallah/abdallah14.WebP',
-    'images/abdallah/abdallah15.WebP', 'images/abdallah/abdallah16.WebP', 'images/abdallah/abdallah17.WebP',
-    'images/abdallah/abdallah18.WebP', 'images/abdallah/abdallah19.WebP', 'images/abdallah/abdallah20.WebP',
-    'images/abdallah/abdallah21.WebP', 'images/abdallah/abdallah22.WebP', 'images/abdallah/abdallah23.WebP',
-    'images/abdallah/abdallah24.WebP', 'images/abdallah/abdallah25.WebP', 'images/abdallah/abdallah26.WebP',
-    'images/abdallah/abdallah27.WebP', 'images/abdallah/abdallah28.WebP', 'images/abdallah/abdallah29.WebP',
-    'images/abdallah/abdallah30.WebP', 'images/abdallah/abdallah31.WebP', 'images/abdallah/abdallah32.WebP',
-    'images/abdallah/abdallah33.WebP', 'images/abdallah/abdallah34.WebP', 'images/abdallah/abdallah35.WebP',
-    'images/abdallah/abdallah36.WebP', 'images/abdallah/abdallah37.WebP', 'images/abdallah/abdallah38.WebP',
-    'images/abdallah/abdallah39.WebP', 'images/abdallah/abdallah40.WebP',
-    ...Array.from({ length: 23 }, (_, i) => `images/abdallah/abdallah${i + 41}.WebP`)
-]
+        images: [
+            'images/abdallah/abdallah.WebP', 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
+            'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah4.WebP', 'images/abdallah/abdallah5.WebP',
+            'images/abdallah/abdallah6.WebP', 'images/abdallah/abdallah7.WebP', 'images/abdallah/abdallah8.WebP',
+            'images/abdallah/abdallah9.WebP', 'images/abdallah/abdallah10.WebP', 'images/abdallah/abdallah11.WebP',
+            'images/abdallah/abdallah12.WebP', 'images/abdallah/abdallah13.WebP', 'images/abdallah/abdallah14.WebP',
+            'images/abdallah/abdallah15.WebP', 'images/abdallah/abdallah16.WebP', 'images/abdallah/abdallah17.WebP',
+            'images/abdallah/abdallah18.WebP', 'images/abdallah/abdallah19.WebP', 'images/abdallah/abdallah20.WebP',
+            'images/abdallah/abdallah21.WebP', 'images/abdallah/abdallah22.WebP', 'images/abdallah/abdallah23.WebP',
+            'images/abdallah/abdallah24.WebP', 'images/abdallah/abdallah25.WebP', 'images/abdallah/abdallah26.WebP',
+            'images/abdallah/abdallah27.WebP', 'images/abdallah/abdallah28.WebP', 'images/abdallah/abdallah29.WebP',
+            'images/abdallah/abdallah30.WebP', 'images/abdallah/abdallah31.WebP', 'images/abdallah/abdallah32.WebP',
+            'images/abdallah/abdallah33.WebP', 'images/abdallah/abdallah34.WebP', 'images/abdallah/abdallah35.WebP',
+            'images/abdallah/abdallah36.WebP', 'images/abdallah/abdallah37.WebP', 'images/abdallah/abdallah38.WebP',
+            'images/abdallah/abdallah39.WebP', 'images/abdallah/abdallah40.WebP',
+            ...Array.from({ length: 23 }, (_, i) => `images/abdallah/abdallah${i + 41}.WebP`)
+        ]
     }
 };
 
@@ -159,7 +159,6 @@ const DOM = {
             galleryModal: document.getElementById('galleryModal'),
             modalTitle: document.getElementById('modalTitle'),
             mainImage: document.getElementById('mainImage'),
-            thumbnailsContainer: document.getElementById('thumbnailsContainer'),
             imageCounter: document.getElementById('imageCounter'),
             modalClose: document.getElementById('modalClose'),
             prevBtn: document.getElementById('prevBtn'),
@@ -203,40 +202,142 @@ const Utils = {
             }
         });
         return element;
+    },
+
+    // Smooth scroll to element
+    smoothScrollTo(element, target, duration = 500) {
+        const start = element.scrollLeft;
+        const change = target - start;
+        const startTime = performance.now();
+        
+        function animateScroll(currentTime) {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function for smooth animation
+            const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+            
+            element.scrollLeft = start + change * ease(progress);
+            
+            if (elapsed < duration) {
+                requestAnimationFrame(animateScroll);
+            }
+        }
+        
+        requestAnimationFrame(animateScroll);
     }
 };
 
 // ============================================
-// IMAGE OPTIMIZATION MODULE
+// IMAGE LOADER
 // ============================================
-const ImageOptimizer = {
-    // تحميل أولي للصور الأولى فقط
-    preloadFirstImages() {
-        Object.values(projectsData).forEach(project => {
-            // تحميل أول 3 صور فقط لكل مشروع
-            const firstImages = project.images.slice(0, 3);
-            firstImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
+const ImageLoader = {
+    // تحميل الصور الأساسية
+    preloadCriticalImages() {
+        const criticalImages = [
+            'images/logoBlack.jpg',
+            'images/logo.jpg'
+        ];
+        
+        criticalImages.forEach(src => {
+            const img = new Image();
+            img.src = src;
         });
     },
 
-    // تحميل متقدم للصور مع الأولوية
-    loadImageWithPriority(src, callback) {
-        const img = new Image();
-        img.onload = () => callback(src);
-        img.onerror = () => callback(CONFIG.imagePlaceholder);
-        img.src = src;
+    // تحميل الصور مع lazy loading
+    lazyLoadImages() {
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    this.loadWithBlur(img.dataset.src, img);
+                    img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
     },
 
-    // تحميل مجموعة من الصور
-    loadImagesBatch(imageUrls, batchSize = 5) {
-        const batches = [];
-        for (let i = 0; i < imageUrls.length; i += batchSize) {
-            batches.push(imageUrls.slice(i, i + batchSize));
-        }
-        return batches;
+    // تحميل الصور مع تأثير blur
+    async loadWithBlur(src, element) {
+        if (!element) return;
+        
+        // إضافة تأثير blur أثناء التحميل
+        element.style.filter = 'blur(10px)';
+        element.style.opacity = '0.7';
+        element.style.transition = 'filter 0.6s ease, opacity 0.6s ease';
+        
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => {
+                element.src = src;
+                setTimeout(() => {
+                    element.style.filter = 'blur(0px)';
+                    element.style.opacity = '1';
+                    resolve();
+                }, 100);
+            };
+            img.onerror = () => {
+                element.style.filter = 'blur(0px)';
+                element.style.opacity = '1';
+                resolve();
+            };
+            img.src = src;
+        });
+    }
+};
+
+// ============================================
+// LOADING MANAGER
+// ============================================
+const LoadingManager = {
+    init() {
+        this.preloadAssets();
+        this.setupLoadingScreen();
+    },
+
+    preloadAssets() {
+        // تحميل الخطوط المهمة أولاً
+        const font = new FontFace('Cairo', 'url(https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap)');
+        
+        font.load().then(() => {
+            document.fonts.add(font);
+        });
+
+        // تحميل الصور الأساسية
+        ImageLoader.preloadCriticalImages();
+    },
+
+    setupLoadingScreen() {
+        const loadingScreen = document.querySelector('.loading-screen');
+        
+        if (!loadingScreen) return;
+
+        // إخفاء شاشة التحميل بعد تحميل الصفحة
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.add('loaded');
+                
+                // بدء تحميل الصور بعد إخفاء الشاشة
+                setTimeout(() => {
+                    ImageLoader.lazyLoadImages();
+                    ProjectsGallery.preloadFirstImages();
+                }, 500);
+                
+            }, 1500);
+        });
+
+        // إخفاء شاشة التحميل بعد وقت أقصى (fallback)
+        setTimeout(() => {
+            if (!loadingScreen.classList.contains('loaded')) {
+                loadingScreen.classList.add('loaded');
+            }
+        }, 4000);
     }
 };
 
@@ -251,7 +352,14 @@ const ProjectsGallery = {
     },
 
     preloadFirstImages() {
-        ImageOptimizer.preloadFirstImages();
+        // تحميل أول 3 صور لكل مشروع
+        Object.values(projectsData).forEach(project => {
+            const firstImages = project.images.slice(0, 3);
+            firstImages.forEach(src => {
+                const img = new Image();
+                img.src = src;
+            });
+        });
     },
 
     renderProjects() {
@@ -355,102 +463,52 @@ const ProjectsGallery = {
 
     async renderGallery() {
         const project = projectsData[AppState.currentProject];
-        const { mainImage, thumbnailsContainer, imageCounter } = DOM.elements;
+        const { mainImage, imageCounter } = DOM.elements;
 
-        // إظهار صورة مؤقتة أثناء التحميل
-        mainImage.src = CONFIG.imagePlaceholder;
-        mainImage.classList.add('loading');
+        if (!mainImage || !imageCounter) {
+            console.error('Required DOM elements not found');
+            return;
+        }
 
-        // تحميل الصورة الرئيسية أولاً
-        ImageOptimizer.loadImageWithPriority(project.images[AppState.currentImageIndex], (src) => {
-            mainImage.src = src;
-            mainImage.classList.remove('loading');
-        });
+        // إظهار الـ loader
+        const imageLoader = document.querySelector('.image-loader');
+        if (imageLoader) {
+            imageLoader.style.display = 'flex';
+        }
 
         imageCounter.textContent = `${AppState.currentImageIndex + 1} / ${project.images.length}`;
 
-        thumbnailsContainer.innerHTML = '';
-
-        // تحميل الثمبنيلز على مراحل
-        this.loadThumbnailsInBatches(project.images, thumbnailsContainer, project);
-    },
-
-    loadThumbnailsInBatches(images, container, project) {
-        const batchSize = 10; // 10 صور في كل مرة
-        const batches = ImageOptimizer.loadImagesBatch(images, batchSize);
+        await ImageLoader.loadWithBlur(project.images[AppState.currentImageIndex], mainImage);
         
-        batches.forEach((batch, batchIndex) => {
-            setTimeout(() => {
-                this.renderThumbnailBatch(batch, batchIndex * batchSize, container, project);
-            }, batchIndex * 100); // تأخير 100ms بين كل مجموعة
-        });
-    },
-
-    renderThumbnailBatch(batch, startIndex, container, project) {
-        batch.forEach((imageSrc, batchIndex) => {
-            const index = startIndex + batchIndex;
-            const thumbnail = this.createThumbnail(imageSrc, index, project);
-            container.appendChild(thumbnail);
-        });
-
-        // تحديث التمرير بعد إضافة الدفعة
-        this.scrollThumbnailIntoView(AppState.currentImageIndex);
-    },
-
-    createThumbnail(imageSrc, index, project) {
-        const thumbnail = Utils.createElement('div', {
-            className: `thumbnail ${index === AppState.currentImageIndex ? 'active' : ''}`
-        });
-
-        // صورة مؤقتة أولاً
-        const placeholder = Utils.createElement('div', {
-            className: 'thumbnail-placeholder',
-            innerHTML: '<i class="bx bx-loader-alt bx-spin"></i>'
-        });
-        thumbnail.appendChild(placeholder);
-
-        // تحميل الصورة الحقيقية
-        ImageOptimizer.loadImageWithPriority(imageSrc, (src) => {
-            placeholder.remove();
-            const img = Utils.createElement('img', {
-                src: src,
-                alt: `${project.title[AppState.currentLang]} ${index + 1}`,
-                loading: 'lazy'
-            });
-            thumbnail.appendChild(img);
-        });
-
-        thumbnail.addEventListener('click', () => {
-            AppState.currentImageIndex = index;
-            this.renderGallery();
-            this.scrollThumbnailIntoView(index);
-        });
-
-        return thumbnail;
+        // إخفاء الـ loader
+        if (imageLoader) {
+            imageLoader.style.display = 'none';
+        }
     },
 
     initializeModal() {
-        const { galleryModal, modalClose, prevBtn, nextBtn } = DOM.elements;
+        const { galleryModal, modalClose, prevBtn, nextBtn, body } = DOM.elements;
         if (!galleryModal) return;
 
-        // Close modal
         modalClose?.addEventListener('click', () => galleryModal.classList.remove('active'));
         galleryModal.addEventListener('click', (e) => {
             if (e.target === galleryModal) galleryModal.classList.remove('active');
         });
 
-        // Navigation
-        prevBtn?.addEventListener('click', () => this.navigate(-1));
-        nextBtn?.addEventListener('click', () => this.navigate(1));
-
-        // Initialize thumbnails scrolling
-        this.initThumbnailsScrolling();
+        prevBtn?.addEventListener('click', () => {
+            const isEnglish = body.classList.contains('english');
+            this.navigate(isEnglish ? -1 : 1);
+        });
+        
+        nextBtn?.addEventListener('click', () => {
+            const isEnglish = body.classList.contains('english');
+            this.navigate(isEnglish ? 1 : -1);
+        });
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
             if (!galleryModal.classList.contains('active')) return;
             
-            const { body } = DOM.elements;
             const isEnglish = body.classList.contains('english');
             
             switch(e.key) {
@@ -472,39 +530,10 @@ const ProjectsGallery = {
         const { body } = DOM.elements;
         const isEnglish = body.classList.contains('english');
         
-        // Adjust direction based on language
-        const adjustedDirection = isEnglish ? -direction : direction;
+        const adjustedDirection = isEnglish ? direction : -direction;
         
         AppState.currentImageIndex = (AppState.currentImageIndex + adjustedDirection + project.images.length) % project.images.length;
         this.renderGallery();
-        
-        // Scroll thumbnail into view when navigating
-        this.scrollThumbnailIntoView(AppState.currentImageIndex);
-    },
-
-    scrollThumbnailIntoView(index) {
-        const { thumbnailsContainer } = DOM.elements;
-        if (!thumbnailsContainer) return;
-
-        const thumbnails = thumbnailsContainer.querySelectorAll('.thumbnail');
-        const currentThumbnail = thumbnails[index];
-        
-        if (currentThumbnail) {
-            const container = thumbnailsContainer;
-            const thumbnail = currentThumbnail;
-            
-            const containerRect = container.getBoundingClientRect();
-            const thumbnailRect = thumbnail.getBoundingClientRect();
-            
-            // Check if thumbnail is not fully visible
-            if (thumbnailRect.left < containerRect.left || thumbnailRect.right > containerRect.right) {
-                thumbnail.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'nearest',
-                    inline: 'center'
-                });
-            }
-        }
     },
 
     updateGalleryIcons() {
@@ -515,90 +544,13 @@ const ProjectsGallery = {
         
         if (prevIcon && nextIcon) {
             if (isEnglish) {
-                // English mode: left arrow for previous, right arrow for next
                 prevIcon.className = 'bx bx-chevron-left';
                 nextIcon.className = 'bx bx-chevron-right';
             } else {
-                // Arabic mode: right arrow for previous, left arrow for next
                 prevIcon.className = 'bx bx-chevron-right';
                 nextIcon.className = 'bx bx-chevron-left';
             }
         }
-    },
-
-    // ============================================
-    // THUMBNAILS SCROLLING FUNCTIONALITY
-    // ============================================
-    initThumbnailsScrolling() {
-        const { thumbnailsContainer } = DOM.elements;
-        if (!thumbnailsContainer) return;
-
-        let isDragging = false;
-        let startX;
-        let scrollLeft;
-
-        // Mouse events
-        thumbnailsContainer.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - thumbnailsContainer.offsetLeft;
-            scrollLeft = thumbnailsContainer.scrollLeft;
-            thumbnailsContainer.style.cursor = 'grabbing';
-            thumbnailsContainer.style.userSelect = 'none';
-        });
-
-        thumbnailsContainer.addEventListener('mouseleave', () => {
-            isDragging = false;
-            thumbnailsContainer.style.cursor = 'grab';
-        });
-
-        thumbnailsContainer.addEventListener('mouseup', () => {
-            isDragging = false;
-            thumbnailsContainer.style.cursor = 'grab';
-            thumbnailsContainer.style.userSelect = 'auto';
-        });
-
-        thumbnailsContainer.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - thumbnailsContainer.offsetLeft;
-            const walk = (x - startX) * 2; // Scroll-fast factor
-            thumbnailsContainer.scrollLeft = scrollLeft - walk;
-        });
-
-        // Touch events for mobile
-        thumbnailsContainer.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].pageX - thumbnailsContainer.offsetLeft;
-            scrollLeft = thumbnailsContainer.scrollLeft;
-        });
-
-        thumbnailsContainer.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        thumbnailsContainer.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const x = e.touches[0].pageX - thumbnailsContainer.offsetLeft;
-            const walk = (x - startX) * 2;
-            thumbnailsContainer.scrollLeft = scrollLeft - walk;
-        });
-
-        // Add scroll indicators
-        this.updateScrollIndicators();
-        thumbnailsContainer.addEventListener('scroll', () => this.updateScrollIndicators());
-    },
-
-    updateScrollIndicators() {
-        const { thumbnailsContainer } = DOM.elements;
-        if (!thumbnailsContainer) return;
-
-        const { scrollLeft, scrollWidth, clientWidth } = thumbnailsContainer;
-        const canScrollLeft = scrollLeft > 0;
-        const canScrollRight = scrollLeft < (scrollWidth - clientWidth - 10); // 10px tolerance
-
-        // Update CSS variables for scroll indicators
-        thumbnailsContainer.style.setProperty('--can-scroll-left', canScrollLeft ? '1' : '0');
-        thumbnailsContainer.style.setProperty('--can-scroll-right', canScrollRight ? '1' : '0');
     }
 };
 
@@ -717,7 +669,6 @@ const ThemeManager = {
 // ============================================
 const UIComponents = {
     init() {
-        this.initLoadingScreen();
         this.initNavigation();
         this.initBackToTop();
         this.initSmoothScroll();
@@ -725,21 +676,6 @@ const UIComponents = {
         this.initPortfolioFilter();
         this.initContactForm();
         this.initParticles();
-    },
-
-    initLoadingScreen() {
-        const loadingScreen = document.querySelector('.loading-screen');
-        if (!loadingScreen) return;
-
-        // تحميل أسرع للشاشة
-        setTimeout(() => {
-            loadingScreen.classList.add('loaded');
-            setTimeout(() => {
-                if (loadingScreen.parentNode) {
-                    loadingScreen.remove();
-                }
-            }, 500);
-        }, 1000);
     },
 
     initNavigation() {
@@ -1046,6 +982,7 @@ function initializeSocialLinks() {
 document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all modules
+    LoadingManager.init();
     ProjectsGallery.init();
     LanguageManager.init();
     ThemeManager.init();
@@ -1054,21 +991,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize social links
     setTimeout(initializeSocialLinks, 1000);
-    
-    // Add particle animation styles
-    if (!document.querySelector('#particle-styles')) {
-        const style = document.createElement('style');
-        style.id = 'particle-styles';
-        style.textContent = `
-            @keyframes floatParticle {
-                0% { transform: translate(0, 0); opacity: 0; }
-                10% { opacity: 1; }
-                90% { opacity: 1; }
-                100% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
     
     // Debug info
     console.log('Roya Design Website Initialized Successfully!');
