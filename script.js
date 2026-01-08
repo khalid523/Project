@@ -31,7 +31,7 @@ const projectsData = {
             { ar: 'ديكور', en: 'Decor' }
         ],
         images: [
-            'images/ayash/c/0011.WebP', 'images/ayash/c/0033.WebP', 'images/ayash/c/0044.WebP',
+            'images/ayash/u/005.WebP', 'images/ayash/c/0033.WebP', 'images/ayash/c/0044.WebP',
             'images/ayash/d/002.WebP', 'images/ayash/d/0002.WebP', 'images/ayash/d/003.WebP',
             'images/ayash/d/004.WebP', 'images/ayash/d/011.WebP', 'images/ayash/d/012.WebP',
             'images/ayash/d/013.WebP', 'images/ayash/d/0054.WebP', 'images/ayash/e/02.WebP',
@@ -55,7 +55,7 @@ const projectsData = {
             'images/ayash/t/004.WebP', 'images/ayash/t/005.WebP', 'images/ayash/t/006.WebP',
             'images/ayash/t/007.WebP', 'images/ayash/t/008.WebP', 'images/ayash/t/009.WebP',
             'images/ayash/t/010.WebP', 'images/ayash/u/001.WebP', 'images/ayash/u/002.WebP',
-            'images/ayash/u/003.WebP', 'images/ayash/u/004.WebP', 'images/ayash/u/005.WebP',
+            'images/ayash/u/003.WebP', 'images/ayash/u/004.WebP', 'images/ayash/c/0011.WebP',
             'images/ayash/u/006.WebP', 'images/ayash/v/1.WebP', 'images/ayash/v/2.WebP',
             'images/ayash/v/03.WebP', 'images/ayash/y/01.WebP', 'images/ayash/y/02.WebP',
             'images/ayash/y/03.WebP', 'images/ayash/y/04.WebP', 'images/ayash/y/05.WebP',
@@ -109,8 +109,8 @@ const projectsData = {
             { ar: 'إضاءة متقدمة', en: 'Advanced Lighting' }
         ],
         images: [
-            'images/abdallah/abdallah.WebP', 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
-            'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah4.WebP', 'images/abdallah/abdallah5.WebP',
+            'images/abdallah/abdallah4.WebP' , 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
+            'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah.WebP' , 'images/abdallah/abdallah5.WebP',
             'images/abdallah/abdallah6.WebP', 'images/abdallah/abdallah7.WebP', 'images/abdallah/abdallah8.WebP',
             'images/abdallah/abdallah9.WebP', 'images/abdallah/abdallah10.WebP', 'images/abdallah/abdallah11.WebP',
             'images/abdallah/abdallah12.WebP', 'images/abdallah/abdallah13.WebP', 'images/abdallah/abdallah14.WebP',
@@ -665,6 +665,133 @@ const ThemeManager = {
 };
 
 // ============================================
+// PARTICLE SYSTEM
+// ============================================
+const ParticleSystem = {
+    init() {
+        this.createParticles();
+        this.startAnimation();
+    },
+
+    createParticles() {
+        const { heroParticles } = DOM.elements;
+        if (!heroParticles) return;
+
+        heroParticles.innerHTML = '';
+        const particleCount = 50;
+
+        for (let i = 0; i < particleCount; i++) {
+            this.createParticle(heroParticles, i);
+        }
+    },
+
+    createParticle(container, index) {
+        const particle = Utils.createElement('div', {
+            className: 'particle',
+            style: `
+                position: absolute;
+                width: ${Math.random() * 6 + 2}px;
+                height: ${Math.random() * 6 + 2}px;
+                background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+                border-radius: 50%;
+                opacity: ${Math.random() * 0.6 + 0.1};
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+                animation: particleFloat ${Math.random() * 20 + 10}s linear infinite;
+                animation-delay: ${index * 0.1}s;
+                filter: blur(${Math.random() * 2}px);
+            `
+        });
+
+        // Add glow effect
+        const glow = Utils.createElement('div', {
+            className: 'particle-glow',
+            style: `
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                background: inherit;
+                border-radius: 50%;
+                filter: blur(5px);
+                opacity: 0.3;
+            `
+        });
+
+        particle.appendChild(glow);
+        container.appendChild(particle);
+    },
+
+    startAnimation() {
+        this.animateParticles();
+    },
+
+    animateParticles() {
+        const particles = document.querySelectorAll('.particle');
+        particles.forEach(particle => {
+            const x = Math.sin(Date.now() * 0.001 + Math.random() * 10) * 20;
+            const y = Math.cos(Date.now() * 0.001 + Math.random() * 10) * 20;
+            particle.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        requestAnimationFrame(() => this.animateParticles());
+    }
+};
+
+// ============================================
+// SCROLL ANIMATION SYSTEM
+// ============================================
+const ScrollAnimations = {
+    init() {
+        this.observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        this.animateElement(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
+
+        this.setupObservers();
+    },
+
+    setupObservers() {
+        // Observe service cards
+        document.querySelectorAll('.service-card').forEach(card => {
+            this.observer.observe(card);
+        });
+
+        // Observe project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            this.observer.observe(card);
+        });
+
+        // Observe value items
+        document.querySelectorAll('.value-item').forEach(item => {
+            this.observer.observe(item);
+        });
+
+        // Observe contact methods
+        document.querySelectorAll('.contact-method').forEach(method => {
+            this.observer.observe(method);
+        });
+    },
+
+    animateElement(element) {
+        if (element.classList.contains('service-card')) {
+            element.classList.add('visible');
+        }
+        
+        if (element.classList.contains('value-item')) {
+            element.style.animation = 'fadeInUp 0.6s ease forwards';
+        }
+    }
+};
+
+// ============================================
 // UI COMPONENTS MODULE
 // ============================================
 const UIComponents = {
@@ -867,25 +994,10 @@ const UIComponents = {
     },
 
     initParticles() {
-        const { heroParticles } = DOM.elements;
-        if (!heroParticles) return;
-
-        const particleCount = 20; // تقليل العدد للأداء
-        for (let i = 0; i < particleCount; i++) {
-            this.createParticle(heroParticles);
-        }
-    },
-
-    createParticle(container) {
-        const particle = Utils.createElement('div', {
-            style: `
-                position: absolute; width: ${Math.random() * 3 + 2}px; height: ${Math.random() * 3 + 2}px;
-                background: rgba(255, 255, 255, ${Math.random() * 0.2}); border-radius: 50%;
-                top: ${Math.random() * 100}%; left: ${Math.random() * 100}%;
-                animation: floatParticle ${Math.random() * 15 + 10}s linear infinite;
-            `
-        });
-        container.appendChild(particle);
+        // Initialize particle system
+        setTimeout(() => {
+            ParticleSystem.init();
+        }, 2000);
     },
 
     updateActiveNavLink() {
@@ -910,49 +1022,14 @@ const UIComponents = {
 };
 
 // ============================================
-// ABOUT & CONTACT OPTIMIZATIONS
+// INITIALIZE FLOATING ANIMATIONS
 // ============================================
-const AboutContactManager = {
-    init() {
-        this.initScrollAnimations();
-        this.initInteractiveElements();
-    },
-
-    initScrollAnimations() {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.querySelectorAll('.about-content, .contact-content, .about-stats').forEach(el => {
-            el.classList.add('fade-in-up');
-            observer.observe(el);
-        });
-    },
-
-    initInteractiveElements() {
-        // Add hover effects to contact methods
-        const contactMethods = document.querySelectorAll('.contact-method');
-        contactMethods.forEach(method => {
-            method.addEventListener('mouseenter', () => {
-                method.style.transform = 'translateY(-5px)';
-            });
-
-            method.addEventListener('mouseleave', () => {
-                method.style.transform = 'translateY(0)';
-            });
-        });
-    }
-};
+function initFloatingAnimations() {
+    const floatingCards = document.querySelectorAll('.floating-card');
+    floatingCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.5}s`;
+    });
+}
 
 // ============================================
 // SOCIAL LINKS FIX
@@ -983,15 +1060,26 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize all modules
     LoadingManager.init();
+    
+    // Start particle system
+    setTimeout(() => {
+        ParticleSystem.init();
+    }, 1000);
+    
     ProjectsGallery.init();
     LanguageManager.init();
     ThemeManager.init();
     UIComponents.init();
-    AboutContactManager.init();
+    ScrollAnimations.init();
+    
+    // Initialize floating animations
+    initFloatingAnimations();
     
     // Initialize social links
     setTimeout(initializeSocialLinks, 1000);
     
     // Debug info
     console.log('Roya Design Website Initialized Successfully!');
+    console.log('Animations and effects are active!');
 });
+
