@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roya Design - رؤية ديزاين</title>
+    <title>Roya Design - رؤيا ديزاين</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,20 +12,18 @@
 </head>
 <body>
     <!-- Loading Screen with Logo -->
-    <div class="loading-screen">
-        <div class="logo-loader">
-            <div class="logo-container">
-                <div class="logo-dark">
-                    <img src="images/logoBlack.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
-                </div>
-                <div class="logo-light">
-                    <img src="images/logo.jpg" alt="DES GN & FURNITURE Logo" class="logo-image">
-                </div>
+<div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="logo-spinner">
                 <div class="logo-pulse"></div>
+                 <img id="loadingLogo" src="images/logoBlack.jpg" alt="Roya Design Logo" class="loading-logo">
             </div>
-            <div class="loader-text">
-                <span class="logo-title">رؤية ديزاين</span>
-                <span class="logo-subtitle">التصميم والأثاث</span>
+            <div class="loading-text">
+                <h3 class="animate__animated animate__fadeIn">رؤيا ديزاين</h3>
+                <p class="animate__animated animate__fadeIn animate__delay-1s">التصميم والأثاث</p>
+                <div class="loading-progress">
+                    <div class="progress-bar"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -63,7 +61,7 @@
                     
                     <!-- Optional: Text Logo for smaller screens -->
                     <div class="logo-text">
-                        <span class="logo-title" data-en="Roya Design" data-ar="رؤية ديزاين">رؤية ديزاين</span>
+                        <span class="logo-title" data-en="Roya Design" data-ar="رؤيا ديزاين">رؤيا ديزاين</span>
                         <span class="logo-subtitle" data-en="Design & Furniture" data-ar="التصميم والأثاث">التصميم والأثاث</span>
                     </div>
                 </a>
@@ -113,18 +111,15 @@
                    data-ar="تحويل المساحات إلى تجارب معيشية مذهلة تعزز نمط حياتك وترتقي بالمعيشة اليومية">
                    تحويل المساحات إلى تجارب معيشية مذهلة تعزز نمط حياتك وترتقي بالمعيشة اليومية
                 </p>
-                
-                <!-- <div class="hero-actions">
-                    <button class="cta-button primary" data-en="Get Started" data-ar="ابدأ الآن">
-                        <span>ابدأ الآن</span>
-                        <i class='bx bx-chevron-left'></i>
-                    </button>
-                    <button class="cta-button secondary" data-en="View Portfolio" data-ar="عرض الأعمال">
-                        <span>عرض الأعمال</span>
-                        <i class='bx bx-play-circle'></i>
-                    </button>
+                          <div class="hero-actions">
+                    <a href="#portfolio" class="cta-button primary">
+                        <span data-en="View Our Work" data-ar="شاهد أعمالنا">شاهد أعمالنا</span>
+                        <i class='bx bx-arrow-back'></i>
+                    </a>
+                    <a href="#contact" class="cta-button secondary">
+                        <span data-en="Get Consultation" data-ar="احصل على استشارة">احصل على استشارة</span>
+                    </a>
                 </div>
-                 -->
                 <div class="hero-stats">
                     <div class="stat-item">
                         <div class="stat-number" data-count="150">0</div>
@@ -320,8 +315,8 @@
                             <div class="story-content">
                                 <h3 data-en="Our Vision" data-ar="رؤيتنا">رؤيتنا</h3>
                                 <p data-en="At Roya Design, we believe that every space tells a story. Our vision is to transform ordinary spaces into extraordinary living experiences that reflect your personality and enhance your quality of life."
-                                   data-ar="في رؤية ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.">
-                                   في رؤية ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.
+                                   data-ar="في رؤيا ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.">
+                                   في رؤيا ديزاين، نؤمن بأن كل مساحة تحكي قصة. رؤيتنا هي تحويل المساحات العادية إلى تجارب معيشية استثنائية تعكس شخصيتك وتعزز جودة حياتك.
                                 </p>
                             </div>
                         </div>
@@ -510,7 +505,7 @@
                         
                         <!-- Logo Text -->
                         <div class="logo-text">
-                            <span class="logo-title" data-en="Roya Design" data-ar="رؤية ديزاين">رؤية ديزاين</span>
+                            <span class="logo-title" data-en="Roya Design" data-ar="رؤيا ديزاين">رؤيا ديزاين</span>
                             <span class="logo-subtitle" data-en="Interior Design & Furniture" data-ar="التصميم الداخلي والأثاث">التصميم الداخلي والأثاث</span>
                         </div>
                     </a>
@@ -606,7 +601,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p data-en="© 2025 Roya Design. All rights reserved." data-ar="© 2025 رؤية ديزاين. جميع الحقوق محفوظة.">© 2024 رؤية ديزاين. جميع الحقوق محفوظة.</p>
+                <p data-en="© 2025 Roya Design. All rights reserved." data-ar="© 2025 رؤيا ديزاين. جميع الحقوق محفوظة.">© 2024 رؤيا ديزاين. جميع الحقوق محفوظة.</p>
                 <div class="footer-bottom-links">
                     <a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</a>
                     <a href="#" data-en="Terms of Service" data-ar="شروط الخدمة">شروط الخدمة</a>
@@ -619,7 +614,7 @@
     <div class="under-footer">
         <div class="container">
             <div class="color-line"></div>
-            <p data-en="Crafted with passion by Roya Design Team" data-ar="صنع بشغف من قبل فريق رؤية ديزاين">صنع بشغف من قبل فريق رؤية ديزاين</p>
+            <p data-en="Crafted with passion by Roya Design Team" data-ar="صنع بشغف من قبل فريق رؤيا ديزاين">صنع بشغف من قبل فريق رؤية ديزاين</p>
         </div>
     </div>
 
