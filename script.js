@@ -1,35 +1,11 @@
 // ============================================
-// CONFIGURATION & DATA
+// ROYA DESIGN - MAIN SCRIPT
 // ============================================
-const CONFIG = {
-    defaultLang: 'ar',
-    defaultTheme: 'light',
-    animationDuration: 300,
-    imagePlaceholder: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="80"%3E%3Crect fill="%236366f1" width="100" height="80"/%3E%3Ctext fill="white" x="50%25" y="50%25" text-anchor="middle" dy=".3em"%3EImage%3C/text%3E%3C/svg%3E'
-};
 
 const projectsData = {
     project1: {
-        title: { 
-            ar: 'الرفاهية المعاصرة - تصميم شقة سكنية', 
-            en: 'Contemporary Luxury - Residential Apartment Design'
-        },
-        description: {
-            ar: 'تصميم داخلي متكامل لشقة سكنية تجمع بين الأناقة المعاصرة والراحة الوظيفية مع استخدام مواد عالية الجودة',
-            en: 'Comprehensive interior design for a residential apartment blending contemporary elegance with functional comfort using premium materials'
-        },
-        category: { 
-            ar: 'التصميم السكني', 
-            en: 'Residential Design'
-        },
-        style: { ar: 'معاصر فاخر', en: 'Luxury Contemporary' },
-        location: { ar: 'عمّان، الأردن', en: 'Amman, Jordan' },
-        tech: [
-            { ar: 'تصميم داخلي', en: 'Interior Design' },
-            { ar: 'أثاث مخصص', en: 'Custom Furniture' },
-            { ar: 'إضاءة', en: 'Lighting' },
-            { ar: 'ديكور', en: 'Decor' }
-        ],
+        title: { ar: 'الرفاهية المعاصرة - تصميم شقة سكنية', en: 'Contemporary Luxury - Residential Apartment Design' },
+        category: { ar: 'التصميم السكني', en: 'Residential Design' },
         images: [
             'images/ayash/u/005.WebP', 'images/ayash/c/0033.WebP', 'images/ayash/c/0044.WebP',
             'images/ayash/d/002.WebP', 'images/ayash/d/0002.WebP', 'images/ayash/d/003.WebP',
@@ -63,54 +39,16 @@ const projectsData = {
         ]
     },
     project2: {
-        title: { 
-            ar: 'الهوية البصرية - مشروع تجاري متكامل', 
-            en: 'Visual Identity - Comprehensive Commercial Project'
-        },
-        description: {
-            ar: 'هوية بصرية متكاملة وبيئة عمل ملهمة تجمع بين الاحترافية والإبداع في تصميم المساحات التجارية',
-            en: 'Comprehensive visual identity and inspiring work environment blending professionalism with creativity in commercial space design'
-        },
-        category: { 
-            ar: 'التصميم التجاري', 
-            en: 'Commercial Design'
-        },
-        style: { ar: 'حديث متميز', en: 'Modern Premium' },
-        location: { ar: 'عمّان، الأردن', en: 'Amman, Jordan' },
-        tech: [
-            { ar: 'هوية بصرية', en: 'Visual Identity' },
-            { ar: 'تصميم مساحات', en: 'Space Design' },
-            { ar: 'أثاث مكتبي', en: 'Office Furniture' },
-            { ar: 'إضاءة', en: 'Lighting' }
-        ],
-        images: Array.from({ length: 16 }, (_, i) => 
-            `images/elura/${String(i + 1).padStart(3, '0')}.WebP`
-        )
+        title: { ar: 'الهوية البصرية - مشروع تجاري', en: 'Visual Identity - Commercial Project' },
+        category: { ar: 'التصميم التجاري', en: 'Commercial Design' },
+        images: Array.from({ length: 16 }, (_, i) => `images/elura/${String(i + 1).padStart(3, '0')}.WebP`)
     },
     project3: {
-        title: { 
-            ar: 'الفخامة العصرية - فيلا سكنية', 
-            en: 'Modern Opulence - Residential Villa'
-        },
-        description: {
-            ar: 'تصميم داخلي مبتكر لفيلا سكنية تجمع بين الفخامة والوظيفية مع الاهتمام بالتفاصيل الدقيقة والجودة العالية',
-            en: 'Innovative interior design for a residential villa blending opulence with functionality, focusing on intricate details and high quality'
-        },
-        category: { 
-            ar: 'التصميم الفندقي السكني', 
-            en: 'Luxury Residential Design'
-        },
-        style: { ar: 'فخم معاصر', en: 'Luxury Contemporary' },
-        location: { ar: 'عمّان، الأردن', en: 'Amman, Jordan' },
-        tech: [
-            { ar: 'تصميم فيلات', en: 'Villa Design' },
-            { ar: 'أثاث فاخر', en: 'Luxury Furniture' },
-            { ar: 'ديكور فني', en: 'Artistic Decor' },
-            { ar: 'إضاءة متقدمة', en: 'Advanced Lighting' }
-        ],
+        title: { ar: 'الفخامة العصرية - فيلا سكنية', en: 'Modern Opulence - Residential Villa' },
+        category: { ar: 'التصميم السكني الفاخر', en: 'Luxury Residential Design' },
         images: [
-            'images/abdallah/abdallah4.WebP' , 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
-            'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah.WebP' , 'images/abdallah/abdallah5.WebP',
+            'images/abdallah/abdallah4.WebP', 'images/abdallah/abdallah1.WebP', 'images/abdallah/abdallah2.WebP',
+            'images/abdallah/abdallah3.WebP', 'images/abdallah/abdallah.WebP', 'images/abdallah/abdallah5.WebP',
             'images/abdallah/abdallah6.WebP', 'images/abdallah/abdallah7.WebP', 'images/abdallah/abdallah8.WebP',
             'images/abdallah/abdallah9.WebP', 'images/abdallah/abdallah10.WebP', 'images/abdallah/abdallah11.WebP',
             'images/abdallah/abdallah12.WebP', 'images/abdallah/abdallah13.WebP', 'images/abdallah/abdallah14.WebP',
@@ -129,957 +67,376 @@ const projectsData = {
 };
 
 // ============================================
-// STATE MANAGEMENT
+// APP STATE
 // ============================================
-const AppState = {
-    currentLang: localStorage.getItem('royaLang') || CONFIG.defaultLang,
-    currentTheme: localStorage.getItem('royaTheme') || CONFIG.defaultTheme,
+const state = {
+    lang: localStorage.getItem('royaLang') || 'ar',
+    theme: localStorage.getItem('royaTheme') || 'dark',
     currentProject: null,
-    currentImageIndex: 0,
-    
-    setLanguage(lang) {
-        this.currentLang = lang;
-        localStorage.setItem('royaLang', lang);
-    },
-    
-    setTheme(theme) {
-        this.currentTheme = theme;
-        localStorage.setItem('royaTheme', theme);
-    }
+    currentIndex: 0
 };
-
-// ============================================
-// DOM CACHE
-// ============================================
-const DOM = {
-    get elements() {
-        return {
-            body: document.body,
-            projectsGrid: document.getElementById('projectsGrid'),
-            galleryModal: document.getElementById('galleryModal'),
-            modalTitle: document.getElementById('modalTitle'),
-            mainImage: document.getElementById('mainImage'),
-            imageCounter: document.getElementById('imageCounter'),
-            modalClose: document.getElementById('modalClose'),
-            prevBtn: document.getElementById('prevBtn'),
-            nextBtn: document.getElementById('nextBtn'),
-            langBtn: document.getElementById('langBtn'),
-            themeToggle: document.getElementById('themeToggle'),
-            hamburger: document.getElementById('hamburger'),
-            navMenu: document.getElementById('navMenu'),
-            backToTop: document.getElementById('backToTop'),
-            heroParticles: document.getElementById('heroParticles')
-        };
-    }
-};
-
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
-const Utils = {
-    // Debounce function for performance
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-
-    // Create element with attributes
-    createElement(tag, attributes = {}, children = []) {
-        const element = document.createElement(tag);
-        Object.assign(element, attributes);
-        children.forEach(child => {
-            if (typeof child === 'string') {
-                element.appendChild(document.createTextNode(child));
-            } else {
-                element.appendChild(child);
-            }
-        });
-        return element;
-    },
-
-    // Smooth scroll to element
-    smoothScrollTo(element, target, duration = 500) {
-        const start = element.scrollLeft;
-        const change = target - start;
-        const startTime = performance.now();
-        
-        function animateScroll(currentTime) {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            // Easing function for smooth animation
-            const ease = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-            
-            element.scrollLeft = start + change * ease(progress);
-            
-            if (elapsed < duration) {
-                requestAnimationFrame(animateScroll);
-            }
-        }
-        
-        requestAnimationFrame(animateScroll);
-    }
-};
-
-// ============================================
-// IMAGE LOADER
-// ============================================
-const ImageLoader = {
-    // تحميل الصور الأساسية
-    preloadCriticalImages() {
-        const criticalImages = [
-            'images/logoBlack.jpg',
-            'images/logo.jpg'
-        ];
-        
-        criticalImages.forEach(src => {
-            const img = new Image();
-            img.src = src;
-        });
-    },
-
-    // تحميل الصور مع lazy loading
-    lazyLoadImages() {
-        const lazyImages = document.querySelectorAll('img[data-src]');
-        
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    this.loadWithBlur(img.dataset.src, img);
-                    img.removeAttribute('data-src');
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        lazyImages.forEach(img => imageObserver.observe(img));
-    },
-
-    // تحميل الصور مع تأثير blur
-    async loadWithBlur(src, element) {
-        if (!element) return;
-        
-        // إضافة تأثير blur أثناء التحميل
-        element.style.filter = 'blur(10px)';
-        element.style.opacity = '0.7';
-        element.style.transition = 'filter 0.6s ease, opacity 0.6s ease';
-        
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = () => {
-                element.src = src;
-                setTimeout(() => {
-                    element.style.filter = 'blur(0px)';
-                    element.style.opacity = '1';
-                    resolve();
-                }, 100);
-            };
-            img.onerror = () => {
-                element.style.filter = 'blur(0px)';
-                element.style.opacity = '1';
-                resolve();
-            };
-            img.src = src;
-        });
-    }
-};
-
-// ============================================
-// LOADING MANAGER
-// ============================================
-const LoadingManager = {
-    init() {
-        this.preloadAssets();
-        this.setupLoadingScreen();
-    },
-
-    preloadAssets() {
-        // تحميل الخطوط المهمة أولاً
-        const font = new FontFace('Cairo', 'url(https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap)');
-        
-        font.load().then(() => {
-            document.fonts.add(font);
-        });
-
-        // تحميل الصور الأساسية
-        ImageLoader.preloadCriticalImages();
-    },
-
-    setupLoadingScreen() {
-        const loadingScreen = document.querySelector('.loading-screen');
-        
-        if (!loadingScreen) return;
-
-        // إخفاء شاشة التحميل بعد تحميل الصفحة
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                loadingScreen.classList.add('loaded');
-                
-                // بدء تحميل الصور بعد إخفاء الشاشة
-                setTimeout(() => {
-                    ImageLoader.lazyLoadImages();
-                    ProjectsGallery.preloadFirstImages();
-                }, 500);
-                
-            }, 1500);
-        });
-
-        // إخفاء شاشة التحميل بعد وقت أقصى (fallback)
-        setTimeout(() => {
-            if (!loadingScreen.classList.contains('loaded')) {
-                loadingScreen.classList.add('loaded');
-            }
-        }, 4000);
-    }
-};
-
-// ============================================
-// PROJECTS GALLERY MODULE
-// ============================================
-const ProjectsGallery = {
-    init() {
-        this.renderProjects();
-        this.initializeModal();
-        this.preloadFirstImages();
-    },
-
-    preloadFirstImages() {
-        // تحميل أول 3 صور لكل مشروع
-        Object.values(projectsData).forEach(project => {
-            const firstImages = project.images.slice(0, 3);
-            firstImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
-        });
-    },
-
-    renderProjects() {
-        const { projectsGrid } = DOM.elements;
-        if (!projectsGrid) return;
-
-        projectsGrid.innerHTML = '';
-        Object.entries(projectsData).forEach(([key, project]) => {
-            projectsGrid.appendChild(this.createProjectCard(key, project));
-        });
-    },
-
-    createProjectCard(projectKey, project) {
-        const firstImage = project.images[0];
-        const hasValidImage = firstImage && !firstImage.includes('image1.jpg');
-
-        const imageContainer = Utils.createElement('div', { className: 'project-image-container' });
-        
-        if (hasValidImage) {
-            const img = Utils.createElement('img', {
-                className: 'project-image',
-                src: firstImage,
-                alt: project.title[AppState.currentLang],
-                loading: 'lazy',
-                onerror: () => this.showImagePlaceholder(imageContainer)
-            });
-            imageContainer.appendChild(img);
-        } else {
-            this.showImagePlaceholder(imageContainer);
-        }
-
-        const overlay = Utils.createElement('div', { className: 'project-overlay' }, [
-            Utils.createElement('span', { 
-                className: 'project-category',
-                textContent: project.category[AppState.currentLang]
-            }),
-            Utils.createElement('div', { className: 'images-count' }, [
-                Utils.createElement('i', { className: 'bx bx-images' }),
-                Utils.createElement('span', { textContent: `${project.images.length} ${AppState.currentLang === 'ar' ? 'صور' : 'images'}` })
-            ])
-        ]);
-
-        imageContainer.appendChild(overlay);
-
-        const content = Utils.createElement('div', { className: 'project-content' }, [
-            Utils.createElement('h3', { 
-                className: 'project-title',
-                textContent: project.title[AppState.currentLang]
-            }),
-            Utils.createElement('p', { 
-                className: 'project-description',
-                textContent: project.description[AppState.currentLang]
-            }),
-            Utils.createElement('div', { 
-                className: 'project-details'
-            }, [
-                Utils.createElement('div', { className: 'project-style' }, [
-                    Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'النمط: ' : 'Style: ' }),
-                    Utils.createElement('span', { textContent: project.style[AppState.currentLang] })
-                ]),
-                Utils.createElement('div', { className: 'project-location' }, [
-                    Utils.createElement('strong', { textContent: AppState.currentLang === 'ar' ? 'الموقع: ' : 'Location: ' }),
-                    Utils.createElement('span', { textContent: project.location[AppState.currentLang] })
-                ])
-            ]),
-            Utils.createElement('div', { 
-                className: 'project-tech'
-            }, project.tech.map(techItem => 
-                Utils.createElement('span', { 
-                    className: 'tech-tag',
-                    textContent: techItem[AppState.currentLang] || techItem.ar
-                })
-            ))
-        ]);
-
-        const card = Utils.createElement('div', { 
-            className: 'project-card',
-            'data-project': projectKey
-        }, [imageContainer, content]);
-
-        card.addEventListener('click', () => this.openGallery(projectKey));
-        return card;
-    },
-
-    showImagePlaceholder(container) {
-        container.innerHTML = '<div class="image-placeholder"><i class="bx bx-image-alt"></i></div>';
-    },
-
-    openGallery(projectKey) {
-        AppState.currentProject = projectKey;
-        AppState.currentImageIndex = 0;
-        const project = projectsData[projectKey];
-
-        const { galleryModal, modalTitle } = DOM.elements;
-        modalTitle.textContent = project.title[AppState.currentLang];
-        galleryModal.classList.add('active');
-        
-        this.renderGallery();
-        this.updateGalleryIcons();
-    },
-
-    async renderGallery() {
-        const project = projectsData[AppState.currentProject];
-        const { mainImage, imageCounter } = DOM.elements;
-
-        if (!mainImage || !imageCounter) {
-            console.error('Required DOM elements not found');
-            return;
-        }
-
-        // إظهار الـ loader
-        const imageLoader = document.querySelector('.image-loader');
-        if (imageLoader) {
-            imageLoader.style.display = 'flex';
-        }
-
-        imageCounter.textContent = `${AppState.currentImageIndex + 1} / ${project.images.length}`;
-
-        await ImageLoader.loadWithBlur(project.images[AppState.currentImageIndex], mainImage);
-        
-        // إخفاء الـ loader
-        if (imageLoader) {
-            imageLoader.style.display = 'none';
-        }
-    },
-
-    initializeModal() {
-        const { galleryModal, modalClose, prevBtn, nextBtn, body } = DOM.elements;
-        if (!galleryModal) return;
-
-        modalClose?.addEventListener('click', () => galleryModal.classList.remove('active'));
-        galleryModal.addEventListener('click', (e) => {
-            if (e.target === galleryModal) galleryModal.classList.remove('active');
-        });
-
-        prevBtn?.addEventListener('click', () => {
-            const isEnglish = body.classList.contains('english');
-            this.navigate(isEnglish ? -1 : 1);
-        });
-        
-        nextBtn?.addEventListener('click', () => {
-            const isEnglish = body.classList.contains('english');
-            this.navigate(isEnglish ? 1 : -1);
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (!galleryModal.classList.contains('active')) return;
-            
-            const isEnglish = body.classList.contains('english');
-            
-            switch(e.key) {
-                case 'ArrowLeft': 
-                    this.navigate(isEnglish ? -1 : 1); 
-                    break;
-                case 'ArrowRight': 
-                    this.navigate(isEnglish ? 1 : -1); 
-                    break;
-                case 'Escape': 
-                    galleryModal.classList.remove('active'); 
-                    break;
-            }
-        });
-    },
-
-    navigate(direction) {
-        const project = projectsData[AppState.currentProject];
-        const { body } = DOM.elements;
-        const isEnglish = body.classList.contains('english');
-        
-        const adjustedDirection = isEnglish ? direction : -direction;
-        
-        AppState.currentImageIndex = (AppState.currentImageIndex + adjustedDirection + project.images.length) % project.images.length;
-        this.renderGallery();
-    },
-
-    updateGalleryIcons() {
-        const prevIcon = document.querySelector('#prevBtn i');
-        const nextIcon = document.querySelector('#nextBtn i');
-        const { body } = DOM.elements;
-        const isEnglish = body.classList.contains('english');
-        
-        if (prevIcon && nextIcon) {
-            if (isEnglish) {
-                prevIcon.className = 'bx bx-chevron-left';
-                nextIcon.className = 'bx bx-chevron-right';
-            } else {
-                prevIcon.className = 'bx bx-chevron-right';
-                nextIcon.className = 'bx bx-chevron-left';
-            }
-        }
-    }
-};
-
-// ============================================
-// LANGUAGE MANAGEMENT MODULE
-// ============================================
-const LanguageManager = {
-    init() {
-        this.applySavedLanguage();
-        this.bindEvents();
-    },
-
-    applySavedLanguage() {
-        const { body, langBtn } = DOM.elements;
-        const isEnglish = AppState.currentLang === 'en';
-
-        body.classList.toggle('english', isEnglish);
-        body.setAttribute('dir', isEnglish ? 'ltr' : 'rtl');
-        document.documentElement.setAttribute('lang', AppState.currentLang);
-
-        const span = langBtn?.querySelector('span');
-        if (span) span.textContent = isEnglish ? 'AR' : 'EN';
-
-        this.updateAllTextContent();
-        this.updatePlaceholders();
-        ProjectsGallery.updateGalleryIcons();
-    },
-
-    bindEvents() {
-        const { langBtn } = DOM.elements;
-        langBtn?.addEventListener('click', () => this.toggleLanguage());
-    },
-
-    toggleLanguage() {
-        AppState.setLanguage(AppState.currentLang === 'ar' ? 'en' : 'ar');
-        this.applySavedLanguage();
-        ProjectsGallery.renderProjects();
-        
-        if (DOM.elements.galleryModal?.classList.contains('active')) {
-            ProjectsGallery.renderGallery();
-        }
-    },
-
-    updateAllTextContent() {
-        const attribute = `data-${AppState.currentLang}`;
-        document.querySelectorAll(`[${attribute}]`).forEach(element => {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') return;
-            const newText = element.getAttribute(attribute);
-            if (newText) element.textContent = newText;
-        });
-    },
-
-    updatePlaceholders() {
-        document.querySelectorAll('input, textarea').forEach(element => {
-            const placeholderAttr = AppState.currentLang === 'en' ? 'data-en-placeholder' : 'placeholder';
-            const placeholder = element.getAttribute(placeholderAttr);
-            if (placeholder) element.placeholder = placeholder;
-        });
-    }
-};
-
-// ============================================
-// THEME MANAGEMENT MODULE
-// ============================================
-const ThemeManager = {
-    init() {
-        this.applySavedTheme();
-        this.bindEvents();
-    },
-
-    applySavedTheme() {
-        const { body, themeToggle } = DOM.elements;
-        const isDark = AppState.currentTheme === 'dark';
-
-        if (isDark) {
-            body.setAttribute('data-theme', 'dark');
-            themeToggle.innerHTML = '<i class="bx bx-sun"></i>';
-            themeToggle.style.color = 'var(--accent-color)';
-        } else {
-            body.removeAttribute('data-theme');
-            themeToggle.innerHTML = '<i class="bx bx-moon"></i>';
-            themeToggle.style.color = 'var(--dark-color)';
-        }
-        
-        // Update logo visibility based on theme
-        this.updateLogoVisibility();
-    },
-
-    bindEvents() {
-        const { themeToggle } = DOM.elements;
-        themeToggle?.addEventListener('click', () => this.toggleTheme());
-    },
-
-    toggleTheme() {
-        AppState.setTheme(AppState.currentTheme === 'light' ? 'dark' : 'light');
-        this.applySavedTheme();
-    },
-
-    updateLogoVisibility() {
-        const darkLogos = document.querySelectorAll('.logo-dark');
-        const lightLogos = document.querySelectorAll('.logo-light');
-        const isDark = AppState.currentTheme === 'dark';
-
-        darkLogos.forEach(logo => {
-            logo.style.display = isDark ? 'none' : 'block';
-        });
-        
-        lightLogos.forEach(logo => {
-            logo.style.display = isDark ? 'block' : 'none';
-        });
-    }
-};
-
-// ============================================
-// PARTICLE SYSTEM
-// ============================================
-const ParticleSystem = {
-    init() {
-        this.createParticles();
-        this.startAnimation();
-    },
-
-    createParticles() {
-        const { heroParticles } = DOM.elements;
-        if (!heroParticles) return;
-
-        heroParticles.innerHTML = '';
-        const particleCount = 50;
-
-        for (let i = 0; i < particleCount; i++) {
-            this.createParticle(heroParticles, i);
-        }
-    },
-
-    createParticle(container, index) {
-        const particle = Utils.createElement('div', {
-            className: 'particle',
-            style: `
-                position: absolute;
-                width: ${Math.random() * 6 + 2}px;
-                height: ${Math.random() * 6 + 2}px;
-                background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
-                border-radius: 50%;
-                opacity: ${Math.random() * 0.6 + 0.1};
-                left: ${Math.random() * 100}%;
-                top: ${Math.random() * 100}%;
-                animation: particleFloat ${Math.random() * 20 + 10}s linear infinite;
-                animation-delay: ${index * 0.1}s;
-                filter: blur(${Math.random() * 2}px);
-            `
-        });
-
-        // Add glow effect
-        const glow = Utils.createElement('div', {
-            className: 'particle-glow',
-            style: `
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                background: inherit;
-                border-radius: 50%;
-                filter: blur(5px);
-                opacity: 0.3;
-            `
-        });
-
-        particle.appendChild(glow);
-        container.appendChild(particle);
-    },
-
-    startAnimation() {
-        this.animateParticles();
-    },
-
-    animateParticles() {
-        const particles = document.querySelectorAll('.particle');
-        particles.forEach(particle => {
-            const x = Math.sin(Date.now() * 0.001 + Math.random() * 10) * 20;
-            const y = Math.cos(Date.now() * 0.001 + Math.random() * 10) * 20;
-            particle.style.transform = `translate(${x}px, ${y}px)`;
-        });
-        requestAnimationFrame(() => this.animateParticles());
-    }
-};
-
-// ============================================
-// SCROLL ANIMATION SYSTEM
-// ============================================
-const ScrollAnimations = {
-    init() {
-        this.observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        this.animateElement(entry.target);
-                    }
-                });
-            },
-            {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            }
-        );
-
-        this.setupObservers();
-    },
-
-    setupObservers() {
-        // Observe service cards
-        document.querySelectorAll('.service-card').forEach(card => {
-            this.observer.observe(card);
-        });
-
-        // Observe project cards
-        document.querySelectorAll('.project-card').forEach(card => {
-            this.observer.observe(card);
-        });
-
-        // Observe value items
-        document.querySelectorAll('.value-item').forEach(item => {
-            this.observer.observe(item);
-        });
-
-        // Observe contact methods
-        document.querySelectorAll('.contact-method').forEach(method => {
-            this.observer.observe(method);
-        });
-    },
-
-    animateElement(element) {
-        if (element.classList.contains('service-card')) {
-            element.classList.add('visible');
-        }
-        
-        if (element.classList.contains('value-item')) {
-            element.style.animation = 'fadeInUp 0.6s ease forwards';
-        }
-    }
-};
-
-// ============================================
-// UI COMPONENTS MODULE
-// ============================================
-const UIComponents = {
-    init() {
-        this.initNavigation();
-        this.initBackToTop();
-        this.initSmoothScroll();
-        this.initCounters();
-        this.initPortfolioFilter();
-        this.initContactForm();
-        this.initParticles();
-    },
-
-    initNavigation() {
-        const { hamburger, navMenu } = DOM.elements;
-        if (!hamburger || !navMenu) return;
-
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Close menu on link click
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', Utils.debounce(() => {
-            const header = document.querySelector('.header');
-            if (header) {
-                header.classList.toggle('scrolled', window.scrollY > 100);
-            }
-            this.updateActiveNavLink();
-        }, 10));
-    },
-
-    initBackToTop() {
-        const { backToTop } = DOM.elements;
-        if (!backToTop) return;
-
-        window.addEventListener('scroll', Utils.debounce(() => {
-            backToTop.classList.toggle('visible', window.scrollY > 300);
-        }, 10));
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    },
-
-    initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    const offsetTop = targetElement.offsetTop - 80;
-                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-                }
-            });
-        });
-    },
-
-    initCounters() {
-        const counters = document.querySelectorAll('.stat-number');
-        if (counters.length === 0) return;
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    this.startCounter(entry.target);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        counters.forEach(counter => observer.observe(counter));
-    },
-
-    startCounter(element) {
-        const target = parseInt(element.getAttribute('data-count'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                element.textContent = target;
-                clearInterval(timer);
-            } else {
-                element.textContent = Math.floor(current);
-            }
-        }, 16);
-    },
-
-    initPortfolioFilter() {
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const portfolioItems = document.querySelectorAll('.portfolio-item');
-        
-        if (filterBtns.length === 0 || portfolioItems.length === 0) return;
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-
-                const filter = this.getAttribute('data-filter');
-                portfolioItems.forEach(item => {
-                    const showItem = filter === 'all' || item.getAttribute('data-category') === filter;
-                    
-                    if (showItem) {
-                        item.style.display = 'block';
-                        setTimeout(() => {
-                            item.style.opacity = '1';
-                            item.style.transform = 'translateY(0)';
-                        }, 100);
-                    } else {
-                        item.style.opacity = '0';
-                        item.style.transform = 'translateY(20px)';
-                        setTimeout(() => item.style.display = 'none', 300);
-                    }
-                });
-            });
-        });
-    },
-
-    initContactForm() {
-        const contactForm = document.querySelector('.contact-form');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => this.handleFormSubmit(e, contactForm));
-        }
-
-        const newsletterForm = document.querySelector('.newsletter-form');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => this.handleFormSubmit(e, newsletterForm, 'Thank you for subscribing to our newsletter!'));
-        }
-    },
-
-    handleFormSubmit(e, form, customMessage = null) {
-        e.preventDefault();
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const originalText = submitBtn.innerHTML;
-
-        // Show loading state
-        submitBtn.innerHTML = '<i class="bx bx-loader-alt bx-spin"></i>';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            this.showNotification(customMessage || 'Message sent successfully! We will get back to you soon.', 'success');
-            form.reset();
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 2000);
-    },
-
-    showNotification(message, type = 'info') {
-        const notification = Utils.createElement('div', {
-            className: `notification ${type}`,
-            style: `
-                position: fixed; top: 20px; right: 20px; background: ${type === 'success' ? '#10b981' : '#6366f1'};
-                color: white; padding: 15px 20px; border-radius: 10px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-                z-index: 10000; display: flex; align-items: center; gap: 10px; transform: translateX(150%);
-                transition: transform 0.3s ease; max-width: 400px;
-            `
-        });
-
-        notification.innerHTML = `
-            <span>${message}</span>
-            <button class="notification-close" style="background: none; border: none; color: white; cursor: pointer;">
-                <i class="bx bx-x"></i>
-            </button>
-        `;
-
-        document.body.appendChild(notification);
-
-        // Animate in
-        setTimeout(() => notification.style.transform = 'translateX(0)', 100);
-
-        // Close functionality
-        notification.querySelector('.notification-close').addEventListener('click', () => this.removeNotification(notification));
-
-        // Auto remove
-        setTimeout(() => this.removeNotification(notification), 5000);
-    },
-
-    removeNotification(notification) {
-        notification.style.transform = 'translateX(150%)';
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.remove();
-            }
-        }, 300);
-    },
-
-    initParticles() {
-        // Initialize particle system
-        setTimeout(() => {
-            ParticleSystem.init();
-        }, 2000);
-    },
-
-    updateActiveNavLink() {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        let currentSection = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            if (window.scrollY >= sectionTop && window.scrollY < sectionTop + section.clientHeight) {
-                currentSection = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${currentSection}`) {
-                link.classList.add('active');
-            }
-        });
-    }
-};
-
-// ============================================
-// INITIALIZE FLOATING ANIMATIONS
-// ============================================
-function initFloatingAnimations() {
-    const floatingCards = document.querySelectorAll('.floating-card');
-    floatingCards.forEach((card, index) => {
-        card.style.animationDelay = `${index * 0.5}s`;
-    });
-}
-
-// ============================================
-// SOCIAL LINKS FIX
-// ============================================
-function initializeSocialLinks() {
-    const socialLinks = document.querySelectorAll('.social-link');
-    
-    socialLinks.forEach(link => {
-        const href = link.getAttribute('href');
-        if (href && href !== '#') {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                window.open(this.href, '_blank', 'noopener,noreferrer');
-            });
-        } else {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                console.log('Social media coming soon');
-            });
-        }
-    });
-}
 
 // ============================================
 // INITIALIZATION
 // ============================================
-document.addEventListener('DOMContentLoaded', function() {
-    
-    // Initialize all modules
-    LoadingManager.init();
-    
-    // Start particle system
-    setTimeout(() => {
-        ParticleSystem.init();
-    }, 1000);
-    
-    ProjectsGallery.init();
-    LanguageManager.init();
-    ThemeManager.init();
-    UIComponents.init();
-    ScrollAnimations.init();
-    
-    // Initialize floating animations
-    initFloatingAnimations();
-    
-    // Initialize social links
-    setTimeout(initializeSocialLinks, 1000);
-    
-    // Debug info
-    console.log('Roya Design Website Initialized Successfully!');
-    console.log('Animations and effects are active!');
+document.addEventListener('DOMContentLoaded', () => {
+    initLoader();
+    initTheme();
+    initLanguage();
+    initNavigation();
+    initProjects();
+    initGallery();
+    initScrollAnimations();
+    initCounters();
+    initBackToTop();
 });
 
+// ============================================
+// LOADER
+// ============================================
+function initLoader() {
+    const loader = document.getElementById('loader');
+    const done = () => loader.classList.add('hidden');
+    
+    // Show loader for at least 2.5s for branding
+    const minTime = 2500;
+    const startTime = Date.now();
+    
+    function dismiss() {
+        const elapsed = Date.now() - startTime;
+        const remaining = Math.max(0, minTime - elapsed);
+        setTimeout(done, remaining);
+    }
+    
+    if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(dismiss);
+    }
+    // Fallback: max 4 seconds
+    setTimeout(done, 4000);
+}
+
+// ============================================
+// THEME
+// ============================================
+function initTheme() {
+    const btn = document.getElementById('themeBtn');
+    applyTheme(state.theme);
+    
+    btn.addEventListener('click', () => {
+        state.theme = state.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('royaTheme', state.theme);
+        applyTheme(state.theme);
+    });
+}
+
+function applyTheme(theme) {
+    const btn = document.getElementById('themeBtn');
+    if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        btn.innerHTML = "<i class='bx bx-sun'></i>";
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+        btn.innerHTML = "<i class='bx bx-moon'></i>";
+    }
+}
+
+// ============================================
+// LANGUAGE
+// ============================================
+function initLanguage() {
+    const btn = document.getElementById('langBtn');
+    applyLanguage(state.lang);
+    
+    btn.addEventListener('click', () => {
+        state.lang = state.lang === 'ar' ? 'en' : 'ar';
+        localStorage.setItem('royaLang', state.lang);
+        applyLanguage(state.lang);
+    });
+}
+
+function applyLanguage(lang) {
+    const btn = document.getElementById('langBtn');
+    const html = document.documentElement;
+    
+    if (lang === 'en') {
+        html.setAttribute('lang', 'en');
+        html.setAttribute('dir', 'ltr');
+        document.body.setAttribute('dir', 'ltr');
+        btn.textContent = 'AR';
+    } else {
+        html.setAttribute('lang', 'ar');
+        html.setAttribute('dir', 'rtl');
+        document.body.setAttribute('dir', 'rtl');
+        btn.textContent = 'EN';
+    }
+    
+    // Update all text elements
+    document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+        el.textContent = el.getAttribute(`data-${lang}`);
+    });
+    
+    // Re-render projects with correct language
+    renderProjects();
+}
+
+// ============================================
+// NAVIGATION
+// ============================================
+function initNavigation() {
+    const nav = document.getElementById('nav');
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    // Scroll effect
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+    
+    // Mobile menu
+    menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        navLinks.classList.toggle('open');
+    });
+    
+    // Close on link click
+    navLinks.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            menuBtn.classList.remove('active');
+            navLinks.classList.remove('open');
+        });
+    });
+    
+    // Active section detection
+    const sections = document.querySelectorAll('section[id]');
+    const links = navLinks.querySelectorAll('.nav-link');
+    
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY + 200;
+        sections.forEach(section => {
+            const top = section.offsetTop;
+            const height = section.offsetHeight;
+            const id = section.getAttribute('id');
+            if (scrollY >= top && scrollY < top + height) {
+                links.forEach(l => l.classList.remove('active'));
+                const active = navLinks.querySelector(`[href="#${id}"]`);
+                if (active) active.classList.add('active');
+            }
+        });
+    }, { passive: true });
+}
+
+// ============================================
+// PROJECTS
+// ============================================
+function initProjects() {
+    renderProjects();
+}
+
+function renderProjects() {
+    const grid = document.getElementById('projectsGrid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    Object.entries(projectsData).forEach(([key, project]) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.setAttribute('data-reveal', '');
+        card.setAttribute('data-project', key);
+        
+        const imgCount = project.images.length;
+        const viewText = state.lang === 'ar' ? 'عرض الصور' : 'View Gallery';
+        
+        card.innerHTML = `
+            <img src="${project.images[0]}" alt="${project.title[state.lang]}" loading="lazy">
+            <div class="project-badge"><i class='bx bx-images'></i> ${imgCount} ${state.lang === 'ar' ? 'صورة' : 'photos'}</div>
+            <div class="project-overlay">
+                <h3>${project.title[state.lang]}</h3>
+                <span>${project.category[state.lang]}</span>
+                <div class="project-cta"><i class='bx bx-show'></i> ${viewText}</div>
+            </div>
+        `;
+        
+        card.addEventListener('click', () => openGallery(key));
+        grid.appendChild(card);
+    });
+    
+    // Re-apply reveal to new elements
+    observeReveals();
+}
+
+// ============================================
+// GALLERY MODAL
+// ============================================
+function initGallery() {
+    const modal = document.getElementById('galleryModal');
+    const closeBtn = document.getElementById('modalClose');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const overlay = modal.querySelector('.modal-overlay');
+    
+    closeBtn.addEventListener('click', closeGallery);
+    overlay.addEventListener('click', closeGallery);
+    prevBtn.addEventListener('click', () => navigateGallery(-1));
+    nextBtn.addEventListener('click', () => navigateGallery(1));
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!modal.classList.contains('active')) return;
+        if (e.key === 'Escape') closeGallery();
+        if (e.key === 'ArrowLeft') navigateGallery(document.documentElement.dir === 'rtl' ? 1 : -1);
+        if (e.key === 'ArrowRight') navigateGallery(document.documentElement.dir === 'rtl' ? -1 : 1);
+    });
+}
+
+function openGallery(projectKey) {
+    const project = projectsData[projectKey];
+    if (!project) return;
+    
+    state.currentProject = project;
+    state.currentIndex = 0;
+    
+    const modal = document.getElementById('galleryModal');
+    const title = document.getElementById('modalTitle');
+    
+    title.textContent = project.title[state.lang];
+    
+    renderThumbnails();
+    showImage(0);
+    
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeGallery() {
+    const modal = document.getElementById('galleryModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function showImage(index) {
+    const project = state.currentProject;
+    if (!project) return;
+    
+    const total = project.images.length;
+    state.currentIndex = (index + total) % total;
+    
+    const img = document.getElementById('mainImage');
+    const counter = document.getElementById('imageCounter');
+    
+    img.style.opacity = '0';
+    setTimeout(() => {
+        img.src = project.images[state.currentIndex];
+        img.onload = () => { img.style.opacity = '1'; };
+    }, 150);
+    
+    counter.textContent = `\u200e${state.currentIndex + 1} / ${total}`;
+    
+    // Update active thumbnail
+    document.querySelectorAll('.thumb').forEach((t, i) => {
+        t.classList.toggle('active', i === state.currentIndex);
+    });
+    
+    // Scroll active thumbnail into view
+    const activeThumb = document.querySelector('.thumb.active');
+    if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+function navigateGallery(direction) {
+    showImage(state.currentIndex + direction);
+}
+
+function renderThumbnails() {
+    const container = document.getElementById('thumbnailsContainer');
+    const project = state.currentProject;
+    if (!container || !project) return;
+    
+    container.innerHTML = '';
+    
+    project.images.forEach((src, i) => {
+        const thumb = document.createElement('div');
+        thumb.className = `thumb${i === 0 ? ' active' : ''}`;
+        thumb.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
+        thumb.addEventListener('click', () => showImage(i));
+        container.appendChild(thumb);
+    });
+}
+
+// ============================================
+// SCROLL REVEAL ANIMATIONS
+// ============================================
+function initScrollAnimations() {
+    observeReveals();
+}
+
+function observeReveals() {
+    const elements = document.querySelectorAll('[data-reveal]:not(.revealed)');
+    let delay = 0;
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                delay += 80;
+                const d = delay;
+                setTimeout(() => {
+                    entry.target.classList.add('revealed');
+                }, d);
+                observer.unobserve(entry.target);
+            }
+        });
+        // Reset delay after batch
+        setTimeout(() => { delay = 0; }, 100);
+    }, { threshold: 0.15 });
+    
+    elements.forEach(el => observer.observe(el));
+}
+
+// ============================================
+// COUNTER ANIMATION
+// ============================================
+function initCounters() {
+    const counters = document.querySelectorAll('.stat-num');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(el => observer.observe(el));
+}
+
+function animateCounter(el) {
+    const target = parseInt(el.getAttribute('data-count'));
+    const duration = 2000;
+    const start = performance.now();
+    
+    function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        // Ease out
+        const ease = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(target * ease) + '+';
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    
+    requestAnimationFrame(update);
+}
+
+// ============================================
+// BACK TO TOP
+// ============================================
+function initBackToTop() {
+    const btn = document.getElementById('backTop');
+    
+    window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 500);
+    }, { passive: true });
+    
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
