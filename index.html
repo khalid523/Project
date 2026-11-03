@@ -13,6 +13,16 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Floating Particles -->
+    <canvas id="particles" class="particles-canvas"></canvas>
+
     <div class="loader" id="loader">
         <div class="loader-inner">
             <div class="loader-glow"></div>
@@ -215,6 +225,96 @@
                         <div class="exp-badge"><span class="exp-num">15+</span><span data-en="Years Experience" data-ar="سنة خبرة">سنة خبرة</span></div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How We Work -->
+    <section id="process" class="section section-alt">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-tag" data-en="Our Process" data-ar="آلية عملنا">آلية عملنا</span>
+                <h2 class="section-title" data-en="How We Work" data-ar="كيف نشتغل">كيف نشتغل</h2>
+            </div>
+            <div class="process-grid">
+                <div class="process-step" data-reveal>
+                    <div class="process-line"></div>
+                    <div class="process-icon"><i class='bx bx-message-dots'></i></div>
+                    <div class="process-num">01</div>
+                    <h3 data-en="Consultation" data-ar="الاستشارة">الاستشارة</h3>
+                    <p data-en="We listen to your vision and understand your needs, lifestyle, and budget" data-ar="نسمع رؤيتك ونفهم احتياجاتك ونمط حياتك وميزانيتك">نسمع رؤيتك ونفهم احتياجاتك ونمط حياتك وميزانيتك</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="process-line"></div>
+                    <div class="process-icon"><i class='bx bx-palette'></i></div>
+                    <div class="process-num">02</div>
+                    <h3 data-en="Design" data-ar="التصميم">التصميم</h3>
+                    <p data-en="We create detailed 3D designs and mood boards for your approval" data-ar="نصمم تصاميم ثلاثية الأبعاد مفصلة ولوحات مزاجية لموافقتك">نصمم تصاميم ثلاثية الأبعاد مفصلة ولوحات مزاجية لموافقتك</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="process-line"></div>
+                    <div class="process-icon"><i class='bx bx-wrench'></i></div>
+                    <div class="process-num">03</div>
+                    <h3 data-en="Execution" data-ar="التنفيذ">التنفيذ</h3>
+                    <p data-en="Our expert team brings the design to life with precision craftsmanship" data-ar="فريقنا الخبير ينفذ التصميم بحرفية عالية ودقة متناهية">فريقنا الخبير ينفذ التصميم بحرفية عالية ودقة متناهية</p>
+                </div>
+                <div class="process-step" data-reveal>
+                    <div class="process-line"></div>
+                    <div class="process-icon"><i class='bx bx-check-shield'></i></div>
+                    <div class="process-num">04</div>
+                    <h3 data-en="Delivery" data-ar="التسليم">التسليم</h3>
+                    <p data-en="Final walkthrough and handover of your dream space, ready to live in" data-ar="جولة نهائية وتسليم مساحة أحلامك جاهزة للسكن">جولة نهائية وتسليم مساحة أحلامك جاهزة للسكن</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section">
+        <div class="container">
+            <div class="section-head">
+                <span class="section-tag" data-en="Testimonials" data-ar="آراء عملائنا">آراء عملائنا</span>
+                <h2 class="section-title" data-en="What Our Clients Say" data-ar="ماذا يقول عملاؤنا">ماذا يقول عملاؤنا</h2>
+            </div>
+            <div class="testimonials-slider" id="testimonialsSlider">
+                <div class="testimonial-card active" data-reveal>
+                    <div class="testimonial-stars"><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></div>
+                    <p class="testimonial-text" data-en="Roya Design transformed our home beyond our imagination. Their attention to detail and creative solutions made our space truly special." data-ar="رؤيا ديزاين حولوا بيتنا لشي فوق الخيال. اهتمامهم بالتفاصيل وحلولهم الإبداعية خلت مساحتنا مميزة فعلاً.">رؤيا ديزاين حولوا بيتنا لشي فوق الخيال. اهتمامهم بالتفاصيل وحلولهم الإبداعية خلت مساحتنا مميزة فعلاً.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <h4 data-en="Ahmad Al-Khalidi" data-ar="أحمد الخالدي">أحمد الخالدي</h4>
+                            <span data-en="Villa Owner - Abdoun" data-ar="صاحب فيلا - عبدون">صاحب فيلا - عبدون</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-reveal>
+                    <div class="testimonial-stars"><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></div>
+                    <p class="testimonial-text" data-en="Professional team with exceptional taste. They understood our brand identity perfectly and created an office space that impresses every visitor." data-ar="فريق محترف بذوق استثنائي. فهموا هوية علامتنا التجارية وصنعوا مكتب يبهر كل زائر.">فريق محترف بذوق استثنائي. فهموا هوية علامتنا التجارية وصنعوا مكتب يبهر كل زائر.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <h4 data-en="Sara Mansour" data-ar="سارة منصور">سارة منصور</h4>
+                            <span data-en="CEO - Tech Company" data-ar="مديرة تنفيذية - شركة تقنية">مديرة تنفيذية - شركة تقنية</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card" data-reveal>
+                    <div class="testimonial-stars"><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i></div>
+                    <p class="testimonial-text" data-en="From concept to completion, the experience was seamless. They delivered on time and the quality exceeded our expectations." data-ar="من الفكرة للتنفيذ، التجربة كانت سلسة. سلموا بالوقت والجودة فاقت توقعاتنا.">من الفكرة للتنفيذ، التجربة كانت سلسة. سلموا بالوقت والجودة فاقت توقعاتنا.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar"><i class='bx bx-user'></i></div>
+                        <div>
+                            <h4 data-en="Mohammad Tarawneh" data-ar="محمد الطراونة">محمد الطراونة</h4>
+                            <span data-en="Apartment Owner - Dabouq" data-ar="صاحب شقة - دابوق">صاحب شقة - دابوق</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonials-nav">
+                <button class="test-nav-btn" id="testPrev"><i class='bx bx-chevron-right'></i></button>
+                <div class="test-dots" id="testDots"></div>
+                <button class="test-nav-btn" id="testNext"><i class='bx bx-chevron-left'></i></button>
             </div>
         </div>
     </section>
