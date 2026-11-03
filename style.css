@@ -583,22 +583,20 @@ ul { list-style: none; }
     background: var(--bg-card);
     border: 1px solid var(--border);
     transition: all 0.5s var(--ease);
+    -webkit-tap-highlight-color: transparent;
 }
 .video-card::after {
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(180deg, transparent 55%, rgba(8, 8, 8, 0.7) 100%);
     pointer-events: none;
 }
+/* Absolute so the video's own size never stretches the card */
 .video-card video {
+    position: absolute; inset: 0;
     width: 100%; height: 100%;
-    object-fit: cover; display: block;
+    object-fit: cover;
     transition: transform 0.8s var(--ease);
 }
-.video-card:hover {
-    border-color: var(--border-gold);
-    box-shadow: var(--shadow);
-}
-.video-card:hover video { transform: scale(1.04); }
 .video-play {
     position: absolute; top: 50%; left: 50%;
     transform: translate(-50%, -50%);
@@ -610,7 +608,14 @@ ul { list-style: none; }
     z-index: 2;
     transition: transform 0.4s var(--ease-bounce), opacity 0.4s;
 }
-.video-card:hover .video-play { transform: translate(-50%, -50%) scale(0.8); opacity: 0.85; }
+@media (hover: hover) {
+    .video-card:hover {
+        border-color: var(--border-gold);
+        box-shadow: var(--shadow);
+    }
+    .video-card:hover video { transform: scale(1.04); }
+    .video-card:hover .video-play { transform: translate(-50%, -50%) scale(0.8); opacity: 0.85; }
+}
 .video-duration {
     position: absolute; bottom: 14px; inset-inline-start: 14px;
     z-index: 2;
@@ -628,23 +633,21 @@ ul { list-style: none; }
 /* --- Video Modal --- */
 .video-modal-wrap {
     position: relative; z-index: 2;
-    width: min(94vw, calc(88vh * 9 / 16));
-    aspect-ratio: 9/16;
+    display: flex; flex-direction: column; align-items: flex-end; gap: 12px;
+    width: min(92vw, calc((88vh - 56px) * 9 / 16));
+    /* svh = height with the phone browser's toolbars showing, so controls stay visible */
+    width: min(92vw, calc((88svh - 56px) * 9 / 16));
     transform: scale(0.95);
     transition: transform 0.4s var(--ease-bounce);
 }
 .modal.active .video-modal-wrap { transform: scale(1); }
 .video-modal-wrap video {
-    width: 100%; height: 100%;
+    width: 100%; height: auto;
+    aspect-ratio: 9/16;
     object-fit: contain;
     background: #000;
     border-radius: var(--radius);
     border: 1px solid rgba(255, 255, 255, 0.08);
-}
-.video-modal-close {
-    position: absolute; top: 12px; inset-inline-end: 12px;
-    z-index: 3;
-    background: rgba(0, 0, 0, 0.55);
 }
 
 @media (max-width: 1024px) {
@@ -652,18 +655,14 @@ ul { list-style: none; }
 }
 @media (max-width: 768px) {
     .videos-block { margin-top: 72px; }
-    .videos-grid {
-        grid-template-columns: none;
-        grid-auto-flow: column;
-        grid-auto-columns: 62%;
-        gap: 16px;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        padding-bottom: 8px;
-        scrollbar-width: none;
+    .videos-head { margin-bottom: 32px; }
+    .videos-grid { gap: 12px; }
+    .video-card { border-radius: var(--radius-sm); }
+    .video-play {
+        width: 48px; height: 48px; font-size: 1.5rem;
+        box-shadow: 0 0 0 6px rgba(201, 169, 110, 0.2), var(--shadow-gold);
     }
-    .videos-grid::-webkit-scrollbar { display: none; }
-    .video-card { scroll-snap-align: start; }
+    .video-duration { bottom: 10px; inset-inline-start: 10px; padding: 4px 10px; font-size: 0.7rem; }
 }
 
 /* --- Gallery Modal --- */

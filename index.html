@@ -54,6 +54,7 @@
     <!-- Hero -->
     <section id="home" class="hero">
         <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="videos/posters/hero.webp" aria-hidden="true">
+            <source src="videos/hero-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
             <source src="videos/hero.mp4" type="video/mp4">
         </video>
         <div class="hero-bg"></div>
@@ -179,7 +180,7 @@
         <div class="modal video-modal" id="videoModal">
             <div class="modal-overlay"></div>
             <div class="video-modal-wrap">
-                <button class="modal-close video-modal-close" id="videoModalClose" aria-label="Close"><i class='bx bx-x'></i></button>
+                <button class="modal-close" id="videoModalClose" aria-label="Close"><i class='bx bx-x'></i></button>
                 <video id="videoPlayer" controls playsinline></video>
             </div>
         </div>
