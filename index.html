@@ -53,6 +53,9 @@
 
     <!-- Hero -->
     <section id="home" class="hero">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="videos/posters/hero.webp" aria-hidden="true">
+            <source src="videos/hero.mp4" type="video/mp4">
+        </video>
         <div class="hero-bg"></div>
         <div class="container hero-grid">
             <div class="hero-content">
@@ -70,11 +73,6 @@
                     <div class="stat"><span class="stat-num" data-count="150">0</span><span class="stat-label" data-en="Projects" data-ar="مشروع">مشروع</span></div>
                     <div class="stat"><span class="stat-num" data-count="50">0</span><span class="stat-label" data-en="Clients" data-ar="عميل">عميل</span></div>
                     <div class="stat"><span class="stat-num" data-count="15">0</span><span class="stat-label" data-en="Years" data-ar="سنة خبرة">سنة خبرة</span></div>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-img-wrap">
-                    <img src="images/ayash/u/005.WebP" alt="Interior Design" class="hero-img">
                 </div>
             </div>
         </div>
@@ -146,6 +144,44 @@
                 <h2 class="section-title" data-en="Featured Projects" data-ar="مشاريع مميزة">مشاريع مميزة</h2>
             </div>
             <div class="projects-grid" id="projectsGrid"></div>
+
+            <div class="videos-block">
+                <div class="videos-head">
+                    <span class="section-tag" data-en="Video Tours" data-ar="جولات بالفيديو">جولات بالفيديو</span>
+                    <h3 class="videos-title" data-en="See Our Work in Motion" data-ar="شاهد أعمالنا بالفيديو">شاهد أعمالنا بالفيديو</h3>
+                </div>
+                <div class="videos-grid">
+                    <button type="button" class="video-card" data-reveal aria-label="Play video">
+                        <video muted loop playsinline preload="none" poster="videos/posters/tour-1.webp"><source src="videos/tour-1.mp4" type="video/mp4"></video>
+                        <span class="video-play"><i class='bx bx-play'></i></span>
+                        <span class="video-duration"><i class='bx bx-time-five'></i> 0:46</span>
+                    </button>
+                    <button type="button" class="video-card" data-reveal aria-label="Play video">
+                        <video muted loop playsinline preload="none" poster="videos/posters/tour-2.webp"><source src="videos/tour-2.mp4" type="video/mp4"></video>
+                        <span class="video-play"><i class='bx bx-play'></i></span>
+                        <span class="video-duration"><i class='bx bx-time-five'></i> 0:54</span>
+                    </button>
+                    <button type="button" class="video-card" data-reveal aria-label="Play video">
+                        <video muted loop playsinline preload="none" poster="videos/posters/tour-3.webp"><source src="videos/tour-3.mp4" type="video/mp4"></video>
+                        <span class="video-play"><i class='bx bx-play'></i></span>
+                        <span class="video-duration"><i class='bx bx-time-five'></i> 0:46</span>
+                    </button>
+                    <button type="button" class="video-card" data-reveal aria-label="Play video">
+                        <video muted loop playsinline preload="none" poster="videos/posters/tour-4.webp"><source src="videos/tour-4.mp4" type="video/mp4"></video>
+                        <span class="video-play"><i class='bx bx-play'></i></span>
+                        <span class="video-duration"><i class='bx bx-time-five'></i> 1:04</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Modal -->
+        <div class="modal video-modal" id="videoModal">
+            <div class="modal-overlay"></div>
+            <div class="video-modal-wrap">
+                <button class="modal-close video-modal-close" id="videoModalClose" aria-label="Close"><i class='bx bx-x'></i></button>
+                <video id="videoPlayer" controls playsinline></video>
+            </div>
         </div>
 
         <!-- Gallery Modal -->
@@ -233,7 +269,7 @@
                 <form class="contact-form" action="https://formsubmit.co/Royadesign793@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="رسالة جديدة من موقع رؤيا ديزاين">
                     <input type="hidden" name="_captcha" value="false">
-                    <input type="hidden" name="_next" value="https://royadesign.com">
+                    <input type="hidden" name="_next" value="https://royadesign.co/">
                     <input type="text" name="_honey" style="display:none">
                     <div class="form-row">
                         <div class="form-group">

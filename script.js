@@ -4,7 +4,7 @@
 
 const projectsData = {
     project1: {
-        title: { ar: 'الرفاهية المعاصرة - تصميم شقة سكنية', en: 'Contemporary Luxury - Residential Apartment Design' },
+        title: { ar: 'الرفاهية المعاصرة - فيلا سكنية', en: 'Contemporary Luxury - Residential Villa' },
         category: { ar: 'التصميم السكني', en: 'Residential Design' },
         images: [
             'images/ayash/u/005.WebP', 'images/ayash/c/0033.WebP', 'images/ayash/c/0044.WebP',
@@ -39,8 +39,8 @@ const projectsData = {
         ]
     },
     project2: {
-        title: { ar: 'الهوية البصرية - مشروع تجاري', en: 'Visual Identity - Commercial Project' },
-        category: { ar: 'التصميم التجاري', en: 'Commercial Design' },
+        title: { ar: 'الهوية البصرية - فيلا سكنية', en: 'Visual Identity - Residential Villa' },
+        category: { ar: 'التصميم السكني', en: 'Residential Design' },
         images: Array.from({ length: 16 }, (_, i) => `images/elura/${String(i + 1).padStart(3, '0')}.WebP`)
     },
     project3: {
@@ -79,7 +79,18 @@ const state = {
 // ============================================
 // INITIALIZATION
 // ============================================
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+function resetToTop() {
+    if (window.location.hash) history.replaceState(null, '', window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+}
+
+// Back/forward cache restores the old scroll position, so reset on return too
+window.addEventListener('pageshow', resetToTop);
+
 document.addEventListener('DOMContentLoaded', () => {
+    resetToTop();
     initLoader();
     initTheme();
     initLanguage();
@@ -89,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initCounters();
     initBackToTop();
+    initVideos();
 });
 
 // ============================================
@@ -326,9 +338,13 @@ function showImage(index) {
     
     img.style.opacity = '0';
     setTimeout(() => {
-        img.src = project.images[state.currentIndex];
         img.onload = () => { img.style.opacity = '1'; };
+        img.src = project.images[state.currentIndex];
     }, 150);
+    
+    [1, -1, 2].forEach(offset => {
+        new Image().src = project.images[(state.currentIndex + offset + total) % total];
+    });
     
     counter.textContent = `\u200e${state.currentIndex + 1} / ${total}`;
     
@@ -356,7 +372,7 @@ function renderThumbnails() {
     project.images.forEach((src, i) => {
         const thumb = document.createElement('div');
         thumb.className = `thumb${i === 0 ? ' active' : ''}`;
-        thumb.innerHTML = `<img src="${src}" alt="" loading="lazy">`;
+        thumb.innerHTML = `<img src="${src.replace('images/', 'images/thumbs/')}" alt="" loading="lazy">`;
         thumb.addEventListener('click', () => showImage(i));
         container.appendChild(thumb);
     });
@@ -438,5 +454,48 @@ function initBackToTop() {
     
     btn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// ============================================
+// VIDEO TOURS
+// ============================================
+function initVideos() {
+    const modal = document.getElementById('videoModal');
+    const player = document.getElementById('videoPlayer');
+    if (!modal || !player) return;
+    
+    const canHover = window.matchMedia('(hover: hover)').matches;
+    
+    document.querySelectorAll('.video-card').forEach(card => {
+        const preview = card.querySelector('video');
+        
+        if (canHover) {
+            card.addEventListener('mouseenter', () => preview.play().catch(() => {}));
+            card.addEventListener('mouseleave', () => preview.pause());
+        }
+        
+        card.addEventListener('click', () => {
+            preview.pause();
+            player.src = preview.querySelector('source').getAttribute('src');
+            player.poster = preview.poster;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            player.play().catch(() => {});
+        });
+    });
+    
+    const close = () => {
+        player.pause();
+        player.removeAttribute('src');
+        player.load();
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
+    document.getElementById('videoModalClose').addEventListener('click', close);
+    modal.querySelector('.modal-overlay').addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) close();
     });
 }
