@@ -48,8 +48,6 @@
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.06);
     --shadow: 0 16px 48px rgba(0, 0, 0, 0.08);
     --shadow-gold: 0 8px 32px rgba(201, 169, 110, 0.12);
-    --hero-shade: rgba(248, 246, 241, 0.88);
-    --hero-shade-soft: rgba(248, 246, 241, 0.35);
 }
 
 /* --- Reset & Base --- */
@@ -157,6 +155,17 @@ ul { list-style: none; }
 [data-theme="light"] .nav.scrolled {
     background: rgba(248, 246, 241, 0.92);
 }
+/* Before scrolling, the nav floats over the dark hero, so use the dark palette there */
+[data-theme="light"] .nav:not(.scrolled) {
+    --bg: #080808;
+    --bg-card: #161616;
+    --text: #f0ece6;
+    --text-muted: #8a8578;
+    --border: rgba(255, 255, 255, 0.05);
+    color: var(--text);
+}
+[data-theme="light"] .nav:not(.scrolled) .logo-light { display: block; }
+[data-theme="light"] .nav:not(.scrolled) .logo-dark { display: none; }
 .nav-wrap {
     display: flex; align-items: center; justify-content: space-between;
     height: 100%;
@@ -239,11 +248,13 @@ ul { list-style: none; }
     position: relative;
     overflow: hidden;
     --hero-dir: to right;
-    /* Muted grey is unreadable over video; lighten it for the dark theme */
+    /* Hero always sits on a darkened video, so it keeps the dark palette in both themes */
+    --text: #f0ece6;
     --text-muted: rgba(240, 236, 230, 0.78);
+    --border: rgba(255, 255, 255, 0.05);
+    color: var(--text);
 }
 [dir="rtl"] .hero { --hero-dir: to left; }
-[data-theme="light"] .hero { --text-muted: #6b6359; }
 .hero-video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -260,8 +271,10 @@ ul { list-style: none; }
     pointer-events: none;
 }
 .hero-bg::after {
-    content: ''; position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 70%, var(--bg) 100%);
+    /* Fade only within the hero's 80px bottom padding so it never sits under text */
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+    height: 80px;
+    background: linear-gradient(180deg, transparent, var(--bg));
 }
 .hero-grid {
     display: grid;
