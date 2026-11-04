@@ -100,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     initBackToTop();
     initVideos();
+    initHeroVideo();
     initHeroParallax();
 });
 
@@ -114,6 +115,7 @@ function initLoader() {
         loader.classList.add('hidden');
         document.body.classList.add('is-loaded');
         initCounters();
+        playHeroVideo();
     };
     
     // Keep the loader up long enough for the signature logo to finish drawing
@@ -475,14 +477,12 @@ function initVideos() {
     if (!modal || !player) return;
     
     const canHover = window.matchMedia('(hover: hover)').matches;
-    const heroVideo = document.querySelector('.hero-video');
     
     const open = (src, poster) => {
         player.src = src;
         player.poster = poster || '';
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
-        if (heroVideo) heroVideo.pause();
         player.play().catch(() => {});
     };
     
@@ -506,7 +506,6 @@ function initVideos() {
         player.load();
         modal.classList.remove('active');
         document.body.style.overflow = '';
-        if (heroVideo) heroVideo.play().catch(() => {});
     };
     
     document.getElementById('videoModalClose').addEventListener('click', close);
@@ -514,6 +513,39 @@ function initVideos() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) close();
     });
+}
+
+// ============================================
+// HERO VIDEO
+// ============================================
+function playHeroVideo() {
+    const video = document.querySelector('.hero-video');
+    if (!video || !video.paused || document.querySelector('.modal.active')) return;
+    video.muted = true;
+    video.play().catch(() => {});
+}
+
+function initHeroVideo() {
+    const video = document.querySelector('.hero-video');
+    if (!video) return;
+    
+    // Resume whenever it's back on screen, pause when scrolled away to save battery
+    new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) playHeroVideo();
+        else video.pause();
+    }).observe(video);
+    
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) playHeroVideo(); });
+    window.addEventListener('pageshow', playHeroVideo);
+    
+    // Some phones block autoplay (e.g. battery-saver mode) until the first touch
+    const events = ['touchend', 'click', 'keydown'];
+    events.forEach(e => window.addEventListener(e, playHeroVideo, { passive: true }));
+    video.addEventListener('playing', () => {
+        events.forEach(e => window.removeEventListener(e, playHeroVideo));
+    }, { once: true });
+    
+    playHeroVideo();
 }
 
 // ============================================

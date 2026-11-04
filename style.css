@@ -1101,6 +1101,11 @@ body.is-loaded .hero-stats { transition-delay: 0.85s; }
         transition-duration: 0.01ms !important;
         transition-delay: 0s !important;
     }
+    /* The slow brand marquee should keep moving even here */
+    .marquee-track {
+        animation-duration: 35s !important;
+        animation-iteration-count: infinite !important;
+    }
     html { scroll-behavior: auto; }
 }
 
