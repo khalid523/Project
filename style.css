@@ -405,6 +405,7 @@ ul { list-style: none; }
     letter-spacing: 0.5px;
     direction: rtl;
 }
+[dir="ltr"] .marquee-track span { direction: ltr; }
 .marquee-track .dot { color: var(--gold); font-size: 0.5rem; opacity: 0.6; }
 @keyframes marqueeScroll {
     0% { transform: translateX(0); }
