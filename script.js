@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initProjects();
     initGallery();
     initScrollAnimations();
-    initCounters();
     initBackToTop();
     initVideos();
+    initHeroParallax();
 });
 
 // ============================================
@@ -108,10 +108,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================
 function initLoader() {
     const loader = document.getElementById('loader');
-    const done = () => loader.classList.add('hidden');
+    const done = () => {
+        // Called by both the fonts-ready path and the 4s fallback; only run once
+        if (document.body.classList.contains('is-loaded')) return;
+        loader.classList.add('hidden');
+        document.body.classList.add('is-loaded');
+        initCounters();
+    };
     
-    // Show loader for at least 2.5s for branding
-    const minTime = 2500;
+    // Keep the loader up long enough for the signature logo to finish drawing
+    const minTime = 2900;
     const startTime = Date.now();
     
     function dismiss() {
@@ -382,6 +388,9 @@ function renderThumbnails() {
 // SCROLL REVEAL ANIMATIONS
 // ============================================
 function initScrollAnimations() {
+    document.querySelectorAll('.section-head > *, .videos-head > *').forEach(el => {
+        el.setAttribute('data-reveal', '');
+    });
     observeReveals();
 }
 
@@ -466,6 +475,16 @@ function initVideos() {
     if (!modal || !player) return;
     
     const canHover = window.matchMedia('(hover: hover)').matches;
+    const heroVideo = document.querySelector('.hero-video');
+    
+    const open = (src, poster) => {
+        player.src = src;
+        player.poster = poster || '';
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (heroVideo) heroVideo.pause();
+        player.play().catch(() => {});
+    };
     
     document.querySelectorAll('.video-card').forEach(card => {
         const preview = card.querySelector('video');
@@ -477,12 +496,12 @@ function initVideos() {
         
         card.addEventListener('click', () => {
             preview.pause();
-            player.src = preview.querySelector('source').getAttribute('src');
-            player.poster = preview.poster;
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-            player.play().catch(() => {});
+            open(preview.querySelector('source').getAttribute('src'), preview.poster);
         });
+    });
+    
+    document.querySelectorAll('.hero-play').forEach(btn => {
+        btn.addEventListener('click', () => open(btn.dataset.video, btn.dataset.poster));
     });
     
     const close = () => {
@@ -491,6 +510,7 @@ function initVideos() {
         player.load();
         modal.classList.remove('active');
         document.body.style.overflow = '';
+        if (heroVideo) heroVideo.play().catch(() => {});
     };
     
     document.getElementById('videoModalClose').addEventListener('click', close);
@@ -498,4 +518,24 @@ function initVideos() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) close();
     });
+}
+
+// ============================================
+// HERO SCROLL PARALLAX
+// ============================================
+function initHeroParallax() {
+    const grid = document.querySelector('.hero-grid');
+    if (!grid || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => {
+            const y = Math.min(window.scrollY, window.innerHeight);
+            grid.style.transform = `translateY(${y * 0.3}px)`;
+            grid.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.8));
+            ticking = false;
+        });
+    }, { passive: true });
 }
