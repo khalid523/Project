@@ -314,41 +314,6 @@ ul { list-style: none; }
     line-height: 1.9;
 }
 .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 56px; }
-.hero-play {
-    display: inline-flex; align-items: center; gap: 12px;
-    padding: 4px;
-    font-size: 0.9rem; font-weight: 600;
-    color: var(--text);
-}
-.hero-play-icon {
-    position: relative;
-    width: 50px; height: 50px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid var(--gold);
-    color: var(--gold-light);
-    font-size: 1.7rem;
-    transition: all 0.4s var(--ease);
-}
-/* The play triangle looks off-centre without a nudge to the right */
-.hero-play-icon i { margin-left: 3px; }
-.hero-play-icon::before {
-    content: ''; position: absolute; inset: -6px;
-    border-radius: 50%;
-    border: 1.5px solid var(--gold);
-    animation: playPulse 2s ease-out infinite;
-}
-.hero-play:hover .hero-play-icon {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: #fff;
-    transform: scale(1.08);
-}
-@keyframes playPulse {
-    from { transform: scale(0.9); opacity: 0.9; }
-    to { transform: scale(1.6); opacity: 0; }
-}
 .btn {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 15px 34px; border-radius: 50px;

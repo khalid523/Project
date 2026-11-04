@@ -500,10 +500,6 @@ function initVideos() {
         });
     });
     
-    document.querySelectorAll('.hero-play').forEach(btn => {
-        btn.addEventListener('click', () => open(btn.dataset.video, btn.dataset.poster));
-    });
-    
     const close = () => {
         player.pause();
         player.removeAttribute('src');
@@ -526,15 +522,18 @@ function initVideos() {
 function initHeroParallax() {
     const grid = document.querySelector('.hero-grid');
     if (!grid || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const hero = grid.closest('.hero');
     
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (ticking) return;
         ticking = true;
         requestAnimationFrame(() => {
-            const y = Math.min(window.scrollY, window.innerHeight);
-            grid.style.transform = `translateY(${y * 0.3}px)`;
-            grid.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.8));
+            // Only when the whole hero fits on screen; otherwise (phones) the buttons/stats would fade before being seen
+            const fits = hero.offsetHeight <= window.innerHeight + 1;
+            const y = fits ? Math.min(window.scrollY, window.innerHeight) : 0;
+            grid.style.transform = y ? `translateY(${y * 0.3}px)` : '';
+            grid.style.opacity = y ? Math.max(0, 1 - y / (window.innerHeight * 0.8)) : '';
             ticking = false;
         });
     }, { passive: true });
