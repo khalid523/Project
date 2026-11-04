@@ -39,8 +39,8 @@ const projectsData = {
         ]
     },
     project2: {
-        title: { ar: 'الهوية البصرية - فيلا سكنية', en: 'Visual Identity - Residential Villa' },
-        category: { ar: 'التصميم السكني', en: 'Residential Design' },
+        title: { ar: 'مصنع إيلورا - مشروع تجاري', en: 'Elura Factory - Commercial Project' },
+        category: { ar: 'التصميم التجاري', en: 'Commercial Design' },
         images: Array.from({ length: 16 }, (_, i) => `images/elura/${String(i + 1).padStart(3, '0')}.WebP`)
     },
     project3: {
@@ -63,6 +63,16 @@ const projectsData = {
             'images/abdallah/abdallah39.WebP', 'images/abdallah/abdallah40.WebP',
             ...Array.from({ length: 23 }, (_, i) => `images/abdallah/abdallah${i + 41}.WebP`)
         ]
+    },
+    project4: {
+        title: { ar: 'الأناقة الدافئة - فيلا سكنية', en: 'Warm Elegance - Residential Villa' },
+        category: { ar: 'تصميم داخلي وخارجي', en: 'Interior & Exterior Design' },
+        images: Array.from({ length: 66 }, (_, i) => `images/villa4/${String(i + 1).padStart(2, '0')}.WebP`)
+    },
+    project5: {
+        title: { ar: 'الفخامة الهادئة - فيلا سكنية', en: 'Serene Luxury - Residential Villa' },
+        category: { ar: 'تصميم داخلي وخارجي', en: 'Interior & Exterior Design' },
+        images: Array.from({ length: 52 }, (_, i) => `images/villa5/${String(i + 1).padStart(2, '0')}.WebP`)
     }
 };
 
